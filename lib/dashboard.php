@@ -42,9 +42,29 @@ class rex_dashboard
             }
         }
 
+        // Generate widget select for dashboard settings
+        $select = new rex_select();
+        $select->setSize(1);
+        $select->setName('widgets[]');
+        $select->setId('widget-select');
+        $select->setMultiple();
+        $select->setAttribute('class', 'form-control selectpicker');
+        $select->setAttribute('data-selected-text-format', 'static');
+        $select->setAttribute('data-title', rex_i18n::msg('dashboard_select_widget_title'));
+        $select->setAttribute('data-dropdown-align-right', 'auto');
+
+        foreach (static::$items as $item) {
+            $select->addOption($item->getName(), $item->getId());
+
+            if ($item->isActive()) {
+                $select->setSelected($item->getId());
+            }
+        }
+
         return (new rex_fragment([
             'outputActive' => $outputActive,
             'outputInactive' => $outputInactive,
+            'widgetSelect' => $select->get(),
         ]))->parse('dashboard.php');
     }
 
@@ -77,27 +97,7 @@ class rex_dashboard
 
     public static function getHeader()
     {
-        $select = new rex_select();
-        $select->setSize(1);
-        $select->setName('widgets[]');
-        $select->setId('widget-select');
-        $select->setMultiple();
-        $select->setAttribute('class', 'form-control selectpicker');
-        $select->setAttribute('data-selected-text-format', 'static');
-        $select->setAttribute('data-title', rex_i18n::msg('dashboard_select_widget_title'));
-        $select->setAttribute('data-dropdown-align-right', 'auto');
-
-        foreach (static::$items as $item) {
-            $select->addOption($item->getName(), $item->getId());
-
-            if ($item->isActive()) {
-                $select->setSelected($item->getId());
-            }
-        }
-
-        return (new rex_fragment([
-            'widgetSelect' => $select->get(),
-        ]))->parse('header.php');
+        return '';
     }
 
     public static function itemExists($id)
