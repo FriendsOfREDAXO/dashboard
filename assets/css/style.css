@@ -63,6 +63,21 @@
     transform: rotate(180deg)
 }
 
+#rex-dashboard-settings ul.actions li#rex-dashboard-auto-refresh.active i {
+    color: #5cb85c;
+    animation: pulse 2s infinite;
+}
+
+#rex-dashboard-settings ul.actions li#rex-dashboard-auto-refresh.paused i {
+    color: #f0ad4e;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
 #rex-dashboard-settings > .bootstrap-select.form-control:not([class*="col-"]) {
     width: auto;
 }
