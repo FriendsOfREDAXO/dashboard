@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.2 – 28.08.2025
+--------------------------
+- Jetzt FOR-AddOn
+- Neu: Auto-Refresh
+- Button-Leiste verschoben und dezenter
 
 Version 1.1 – 27.05.2021
 --------------------------
