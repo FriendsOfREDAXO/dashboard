@@ -12,6 +12,9 @@
         , items = []
         , $items = []
         , widgetCompactTimeoutHandler = null
+        , autoRefreshInterval = null
+        , autoRefreshPaused = false
+        , autoRefreshIntervalTime = 300000 // 5 minutes
         , dashboard = {
         store: function()
         {
@@ -87,6 +90,59 @@
                     callback(data);
                 }
             });
+        },
+        startAutoRefresh: function()
+        {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+            }
+            
+            autoRefreshInterval = setInterval(function() {
+                if (!autoRefreshPaused) {
+                    dashboard.refreshAllWidgets();
+                }
+            }, autoRefreshIntervalTime);
+            
+            autoRefreshPaused = false;
+            dashboard.updateAutoRefreshUI();
+        },
+        stopAutoRefresh: function()
+        {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+            }
+            autoRefreshPaused = true;
+            dashboard.updateAutoRefreshUI();
+        },
+        pauseAutoRefresh: function()
+        {
+            autoRefreshPaused = true;
+            dashboard.updateAutoRefreshUI();
+        },
+        resumeAutoRefresh: function()
+        {
+            autoRefreshPaused = false;
+            dashboard.updateAutoRefreshUI();
+        },
+        refreshAllWidgets: function()
+        {
+            $('.grid-stack .grid-stack-item-refresh').click();
+        },
+        updateAutoRefreshUI: function()
+        {
+            let $button = $('#rex-dashboard-auto-refresh');
+            let $icon = $button.find('i');
+            
+            if (autoRefreshInterval && !autoRefreshPaused) {
+                $button.removeClass('paused').addClass('active');
+                $icon.removeClass('glyphicon-play').addClass('glyphicon-pause');
+                $button.attr('title', $button.data('title-pause'));
+            } else {
+                $button.removeClass('active').addClass('paused');
+                $icon.removeClass('glyphicon-pause').addClass('glyphicon-play');
+                $button.attr('title', $button.data('title-start'));
+            }
         }
     };
 
@@ -132,6 +188,19 @@
                 dashboard.compact();
                 dashboard.store();
             }, 500);
+        });
+
+        // Pause auto-refresh during user interactions
+        $('.grid-stack').on('mousedown', function() {
+            if (autoRefreshInterval && !autoRefreshPaused) {
+                dashboard.pauseAutoRefresh();
+                // Resume after 30 seconds of no interaction
+                setTimeout(function() {
+                    if (autoRefreshInterval && autoRefreshPaused) {
+                        dashboard.resumeAutoRefresh();
+                    }
+                }, 30000);
+            }
         });
 
         $('#rex-dashboard-compact').on('click', function(e) {
@@ -231,5 +300,23 @@
                 $items.removeClass('loading');
             });*/
         });
+
+        $('#rex-dashboard-settings').on('click', '#rex-dashboard-auto-refresh', function(e)
+        {
+            e.preventDefault();
+            
+            if (autoRefreshInterval && !autoRefreshPaused) {
+                dashboard.pauseAutoRefresh();
+            } else {
+                if (autoRefreshInterval) {
+                    dashboard.resumeAutoRefresh();
+                } else {
+                    dashboard.startAutoRefresh();
+                }
+            }
+        });
+
+        // Start auto-refresh by default
+        dashboard.startAutoRefresh();
     });
 }(jQuery));

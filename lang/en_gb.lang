@@ -1,0 +1,17 @@
+dashboard_title = Dashboard
+dashboard_action_compact = Auto-arrange
+dashboard_action_autosize = Resize
+dashboard_action_refresh = Refresh all widgets
+dashboard_action_auto_refresh = Auto-refresh
+dashboard_action_auto_refresh_start = Start auto-refresh
+dashboard_action_auto_refresh_pause = Pause auto-refresh
+dashboard_select_widget_title = Select widgets
+dashboard_action_refresh_title = Data status:
+dashboard_action_refresh_title_dateformat = Y-m-d H:i
+dashboard_action_hide_title = hide
+
+dashboard_api_store_failed_backend = Dashboard can only be saved in the backend.
+dashboard_api_store_failed_user = You must be logged in to save the dashboard.
+dashboard_api_store_success = Dashboard saved successfully.
+
+dashboard_api_get_failed_user = Access denied.
