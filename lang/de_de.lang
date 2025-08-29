@@ -35,3 +35,15 @@ dashboard_addon_statistics_title = AddOn Statistiken
 dashboard_rss_feed_title = RSS-Feed
 dashboard_countdown_demo_title = Countdown Neujahr
 dashboard_big_number_demo_title = Follower Count
+
+# Tabellen-Überschriften
+dashboard_article = Artikel
+dashboard_category = Kategorie
+dashboard_language = Sprache
+dashboard_updated = Aktualisiert
+dashboard_created = Erstellt
+dashboard_by = Von
+dashboard_no_articles = Keine Artikel gefunden
+dashboard_no_new_articles = Keine neuen Artikel in den letzten 30 Tagen
+dashboard_no_permission = Keine Berechtigung
+dashboard_no_article_permission = Keine Artikel-Berechtigung

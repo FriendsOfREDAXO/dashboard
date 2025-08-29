@@ -25,7 +25,7 @@ class DashboardItemNewArticles extends rex_dashboard_item
     {
         $user = rex::getUser();
         if (!$user) {
-            return '<p class="text-muted">Keine Berechtigung.</p>';
+            return '<p class="text-muted">' . rex_i18n::msg('dashboard_no_permission', 'Keine Berechtigung.') . '</p>';
         }
 
         $sql = rex_sql::factory();
@@ -53,7 +53,7 @@ class DashboardItemNewArticles extends rex_dashboard_item
                 $query .= ' AND a.parent_id IN (' . implode(',', array_map('intval', $allowedCategories)) . ')';
             } else {
                 // Keine Berechtigung für Kategorien
-                return '<p class="text-muted">Keine Artikel-Berechtigung.</p>';
+                return '<p class="text-muted">' . rex_i18n::msg('dashboard_no_article_permission', 'Keine Artikel-Berechtigung.') . '</p>';
             }
         }
         
@@ -62,23 +62,23 @@ class DashboardItemNewArticles extends rex_dashboard_item
         $articles = $sql->getArray($query);
         
         if (empty($articles)) {
-            return '<p class="text-muted">Keine neuen Artikel in den letzten 30 Tagen.</p>';
+            return '<p class="text-muted">' . rex_i18n::msg('dashboard_no_new_articles', 'Keine neuen Artikel in den letzten 30 Tagen.') . '</p>';
         }
         
         $content = '<div class="table-responsive">';
         $content .= '<table class="table table-striped table-hover">';
         $content .= '<thead>';
         $content .= '<tr>';
-        $content .= '<th>Artikel</th>';
-        $content .= '<th>Kategorie</th>';
+        $content .= '<th>' . rex_i18n::msg('dashboard_article', 'Artikel') . '</th>';
+        $content .= '<th>' . rex_i18n::msg('dashboard_category', 'Kategorie') . '</th>';
         
         // Sprach-Spalte nur anzeigen wenn mehrere Sprachen existieren
         if (count(rex_clang::getAll()) > 1) {
-            $content .= '<th>Sprache</th>';
+            $content .= '<th>' . rex_i18n::msg('dashboard_language', 'Sprache') . '</th>';
         }
         
-        $content .= '<th>Erstellt</th>';
-        $content .= '<th>Von</th>';
+        $content .= '<th>' . rex_i18n::msg('dashboard_created', 'Erstellt') . '</th>';
+        $content .= '<th>' . rex_i18n::msg('dashboard_by', 'Von') . '</th>';
         $content .= '</tr>';
         $content .= '</thead>';
         $content .= '<tbody>';

@@ -35,3 +35,15 @@ dashboard_addon_statistics_title = AddOn Statistics
 dashboard_rss_feed_title = RSS Feed
 dashboard_countdown_demo_title = New Year Countdown
 dashboard_big_number_demo_title = Follower Count
+
+# Table Headers
+dashboard_article = Article
+dashboard_category = Category
+dashboard_language = Language
+dashboard_updated = Updated
+dashboard_created = Created
+dashboard_by = By
+dashboard_no_articles = No articles found
+dashboard_no_new_articles = No new articles in the last 30 days
+dashboard_no_permission = Access denied
+dashboard_no_article_permission = No article permissions
