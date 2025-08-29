@@ -31,3 +31,7 @@ dashboard_article_status_title = Artikel-Status Übersicht
 dashboard_system_status_title = System-Status
 dashboard_user_activity_title = Benutzer-Aktivität (7 Tage)
 dashboard_addon_updates_title = AddOn Updates & Übersicht
+dashboard_addon_statistics_title = AddOn Statistiken
+dashboard_rss_feed_title = RSS-Feed
+dashboard_countdown_demo_title = Countdown Neujahr
+dashboard_big_number_demo_title = Follower Count

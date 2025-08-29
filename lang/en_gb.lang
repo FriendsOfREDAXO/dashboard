@@ -15,3 +15,23 @@ dashboard_api_store_failed_user = You must be logged in to save the dashboard.
 dashboard_api_store_success = Dashboard saved successfully.
 
 dashboard_api_get_failed_user = Access denied.
+
+# Config
+dashboard_config_title = Dashboard Configuration
+dashboard_config_demo_title = Demo Elements
+dashboard_config_demo_enabled = Enable demo elements
+dashboard_config_demo_disabled = Disabled
+dashboard_config_saved = Configuration saved successfully.
+
+# Default Widgets
+dashboard_recent_articles_title = Recently updated articles
+dashboard_new_articles_title = New articles (30 days)
+dashboard_media_storage_title = Media storage usage
+dashboard_article_status_title = Article status overview
+dashboard_system_status_title = System Status
+dashboard_user_activity_title = User Activity (7 days)
+dashboard_addon_updates_title = AddOn Management
+dashboard_addon_statistics_title = AddOn Statistics
+dashboard_rss_feed_title = RSS Feed
+dashboard_countdown_demo_title = New Year Countdown
+dashboard_big_number_demo_title = Follower Count
