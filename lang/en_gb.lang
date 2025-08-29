@@ -47,3 +47,29 @@ dashboard_no_articles = No articles found
 dashboard_no_new_articles = No new articles in the last 30 days
 dashboard_no_permission = Access denied
 dashboard_no_article_permission = No article permissions
+
+# Chart Data and Labels
+dashboard_online = Online
+dashboard_offline = Offline
+dashboard_articles_edited = Articles edited
+dashboard_articles_created = Articles created
+dashboard_documents = Documents
+dashboard_images = Images
+dashboard_videos = Videos
+dashboard_audio = Audio
+dashboard_archives = Archives
+dashboard_web_files = Web Files
+dashboard_other = Other
+dashboard_no_mediapool = No mediapool available
+dashboard_no_media_files = No media files found
+dashboard_files = files
+dashboard_mb = MB
+dashboard_articles = articles
+
+# AddOn Statistics
+dashboard_active_addons = Active AddOns
+dashboard_core_addons = Core AddOns
+dashboard_updates = Updates
+dashboard_total = Total
+dashboard_admin_only = Available for administrators only
+dashboard_inactive_addons_info = AddOn(s) installed but not activated

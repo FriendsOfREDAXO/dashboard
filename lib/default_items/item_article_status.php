@@ -34,7 +34,7 @@ class DashboardItemArticleStatus extends rex_dashboard_item_chart_bar
         $chartData = [];
         
         foreach ($data as $row) {
-            $statusName = $row['status'] == 1 ? 'Online' : 'Offline';
+            $statusName = $row['status'] == 1 ? rex_i18n::msg('dashboard_online', 'Online') : rex_i18n::msg('dashboard_offline', 'Offline');
             $chartData[$statusName] = (int)$row['count'];
         }
         
@@ -69,7 +69,7 @@ class DashboardItemArticleStatus extends rex_dashboard_item_chart_bar
             'plugins' => [
                 'tooltip' => [
                     'callbacks' => [
-                        'label' => 'function(context) { return context.label + ": " + context.parsed + " Artikel"; }'
+                        'label' => 'function(context) { return context.label + ": " + context.parsed + " ' . rex_i18n::msg('dashboard_articles', 'Artikel') . '"; }'
                     ]
                 ]
             ],

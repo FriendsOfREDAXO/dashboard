@@ -23,7 +23,7 @@ class DashboardItemAddonStatistics extends rex_dashboard_item
         // Nur für Admins verfügbar
         $user = rex::getUser();
         if (!$user || !$user->isAdmin()) {
-            return '<p class="text-muted">Nur für Administratoren verfügbar.</p>';
+            return '<p class="text-muted">' . rex_i18n::msg('dashboard_admin_only', 'Nur für Administratoren verfügbar.') . '</p>';
         }
         
         $content = '';
@@ -60,19 +60,19 @@ class DashboardItemAddonStatistics extends rex_dashboard_item
         $content .= '<div class="row text-center">';
         $content .= '<div class="col-xs-6 col-sm-3">';
         $content .= '<h4 class="text-success">' . $activeAddons . '</h4>';
-        $content .= '<small>Aktive AddOns</small>';
+        $content .= '<small>' . rex_i18n::msg('dashboard_active_addons', 'Aktive AddOns') . '</small>';
         $content .= '</div>';
         $content .= '<div class="col-xs-6 col-sm-3">';
         $content .= '<h4 class="text-primary">' . $coreAddons . '</h4>';
-        $content .= '<small>Core AddOns</small>';
+        $content .= '<small>' . rex_i18n::msg('dashboard_core_addons', 'Core AddOns') . '</small>';
         $content .= '</div>';
         $content .= '<div class="col-xs-6 col-sm-3">';
         $content .= '<h4 class="text-warning">' . $availableUpdates . '</h4>';
-        $content .= '<small>Updates</small>';
+        $content .= '<small>' . rex_i18n::msg('dashboard_updates', 'Updates') . '</small>';
         $content .= '</div>';
         $content .= '<div class="col-xs-6 col-sm-3">';
         $content .= '<h4 class="text-info">' . $totalAddons . '</h4>';
-        $content .= '<small>Gesamt</small>';
+        $content .= '<small>' . rex_i18n::msg('dashboard_total', 'Gesamt') . '</small>';
         $content .= '</div>';
         $content .= '</div>';
         
@@ -82,7 +82,7 @@ class DashboardItemAddonStatistics extends rex_dashboard_item
             $content .= '<div style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">';
             $content .= '<small class="text-muted">';
             $content .= '<i class="fa fa-info-circle"></i> ';
-            $content .= $inactiveAddons . ' AddOn(s) installiert aber nicht aktiviert';
+            $content .= $inactiveAddons . ' ' . rex_i18n::msg('dashboard_inactive_addons_info', 'AddOn(s) installiert aber nicht aktiviert');
             $content .= '</small>';
             $content .= '</div>';
         }

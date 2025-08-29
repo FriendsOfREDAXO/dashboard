@@ -90,8 +90,8 @@ class DashboardItemUserActivity extends rex_dashboard_item_chart_line
         }
         
         return [
-            'Artikel bearbeitet' => $updates,
-            'Artikel erstellt' => $creates
+            rex_i18n::msg('dashboard_articles_edited', 'Artikel bearbeitet') => $updates,
+            rex_i18n::msg('dashboard_articles_created', 'Artikel erstellt') => $creates
         ];
     }
     
@@ -103,7 +103,7 @@ class DashboardItemUserActivity extends rex_dashboard_item_chart_line
             'plugins' => [
                 'tooltip' => [
                     'callbacks' => [
-                        'label' => 'function(context) { return context.dataset.label + ": " + context.parsed.y + " Artikel"; }'
+                        'label' => 'function(context) { return context.dataset.label + ": " + context.parsed.y + " ' . rex_i18n::msg('dashboard_articles', 'Artikel') . '"; }'
                     ]
                 ]
             ],

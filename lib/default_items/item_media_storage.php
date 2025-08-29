@@ -24,17 +24,17 @@ class DashboardItemMediaStorage extends rex_dashboard_item_chart_pie
         
         // Prüfe ob Mediapool-Addon aktiv ist
         if (!rex_addon::get('mediapool')->isAvailable()) {
-            return ['Kein Mediapool verfügbar' => 1];
+            return [rex_i18n::msg('dashboard_no_mediapool', 'Kein Mediapool verfügbar') => 1];
         }
         
         // Definiere Kategorien basierend auf Dateitypen
         $categories = [
-            'Dokumente' => ['pdf', 'doc', 'docx', 'txt', 'rtf', 'odt', 'xls', 'xlsx', 'ppt', 'pptx'],
-            'Bilder' => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'ico'],
-            'Videos' => ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm', 'mkv', 'm4v'],
-            'Audio' => ['mp3', 'wav', 'ogg', 'flac', 'aac', 'm4a', 'wma'],
-            'Archive' => ['zip', 'rar', '7z', 'tar', 'gz', 'bz2'],
-            'Web-Dateien' => ['css', 'js', 'html', 'htm', 'xml', 'json'],
+            rex_i18n::msg('dashboard_documents', 'Dokumente') => ['pdf', 'doc', 'docx', 'txt', 'rtf', 'odt', 'xls', 'xlsx', 'ppt', 'pptx'],
+            rex_i18n::msg('dashboard_images', 'Bilder') => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'ico'],
+            rex_i18n::msg('dashboard_videos', 'Videos') => ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm', 'mkv', 'm4v'],
+            rex_i18n::msg('dashboard_audio', 'Audio') => ['mp3', 'wav', 'ogg', 'flac', 'aac', 'm4a', 'wma'],
+            rex_i18n::msg('dashboard_archives', 'Archive') => ['zip', 'rar', '7z', 'tar', 'gz', 'bz2'],
+            rex_i18n::msg('dashboard_web_files', 'Web-Dateien') => ['css', 'js', 'html', 'htm', 'xml', 'json'],
         ];
         
         $query = '
@@ -54,7 +54,7 @@ class DashboardItemMediaStorage extends rex_dashboard_item_chart_pie
         $otherCount = 0;
         
         if (empty($data)) {
-            return ['Keine Mediendateien gefunden' => 1];
+            return [rex_i18n::msg('dashboard_no_media_files', 'Keine Mediendateien gefunden') => 1];
         }
         
         // Initialisiere Kategorien
@@ -87,7 +87,7 @@ class DashboardItemMediaStorage extends rex_dashboard_item_chart_pie
         
         // Sonstige hinzufügen falls vorhanden
         if ($otherSize > 0) {
-            $categoryData['Sonstige'] = ['size' => $otherSize, 'count' => $otherCount];
+            $categoryData[rex_i18n::msg('dashboard_other', 'Sonstige')] = ['size' => $otherSize, 'count' => $otherCount];
         }
         
         // Erstelle Chart-Daten
@@ -95,7 +95,7 @@ class DashboardItemMediaStorage extends rex_dashboard_item_chart_pie
         foreach ($categoryData as $categoryName => $info) {
             if ($info['size'] > 0) {
                 $sizeInMB = round($info['size'] / (1024 * 1024), 2);
-                $label = $categoryName . ' (' . $info['count'] . ' Dateien)';
+                $label = $categoryName . ' (' . $info['count'] . ' ' . rex_i18n::msg('dashboard_files', 'Dateien') . ')';
                 $chartData[$label] = $sizeInMB;
             }
         }
@@ -103,7 +103,7 @@ class DashboardItemMediaStorage extends rex_dashboard_item_chart_pie
         // Sortiere nach Größe
         arsort($chartData);
         
-        return empty($chartData) ? ['Keine Mediendateien gefunden' => 1] : $chartData;
+        return empty($chartData) ? [rex_i18n::msg('dashboard_no_media_files', 'Keine Mediendateien gefunden') => 1] : $chartData;
     }
     
     protected function __construct($id, $name)
@@ -115,7 +115,7 @@ class DashboardItemMediaStorage extends rex_dashboard_item_chart_pie
             'plugins' => [
                 'tooltip' => [
                     'callbacks' => [
-                        'label' => 'function(context) { return context.label + ": " + context.parsed + " MB"; }'
+                        'label' => 'function(context) { return context.label + ": " + context.parsed + " ' . rex_i18n::msg('dashboard_mb', 'MB') . '"; }'
                     ]
                 ]
             ]
