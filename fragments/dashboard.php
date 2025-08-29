@@ -23,7 +23,7 @@
             <span><?=rex_i18n::msg('dashboard_action_autosize') ?></span>
         </li>*/ ?>
     </ul>
-    <?=$this->getVar('widgetSelect') ?>
+    <?=$this->getVar('configButton', '') ?><?=$this->getVar('widgetSelect') ?>
 </div>
 <div class="grid-stack"><?=$this->getVar('outputActive') ?></div>
 <div class="grid-stack-inactive"><?=$this->getVar('outputInactive') ?></div>

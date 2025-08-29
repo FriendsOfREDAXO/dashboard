@@ -15,3 +15,19 @@ dashboard_api_store_failed_user = Zum Speichern des Dashboards muss man angemeld
 dashboard_api_store_success = Speichern des Dashboards erfolgreich.
 
 dashboard_api_get_failed_user = Keine Berechtigung.
+
+# Config
+dashboard_config_title = Dashboard Konfiguration
+dashboard_config_demo_title = Demo-Elemente
+dashboard_config_demo_enabled = Demo-Elemente aktivieren
+dashboard_config_demo_disabled = Deaktiviert
+dashboard_config_saved = Konfiguration erfolgreich gespeichert.
+
+# Default Widgets
+dashboard_recent_articles_title = Zuletzt aktualisierte Artikel
+dashboard_new_articles_title = Neue Artikel (30 Tage)
+dashboard_media_storage_title = Medien-Speicherverbrauch nach Typ
+dashboard_article_status_title = Artikel-Status Übersicht
+dashboard_system_status_title = System-Status
+dashboard_user_activity_title = Benutzer-Aktivität (7 Tage)
+dashboard_addon_updates_title = AddOn Updates & Übersicht

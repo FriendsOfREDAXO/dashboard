@@ -61,10 +61,18 @@ class rex_dashboard
             }
         }
 
+        // Generate config button for admins
+        $configButton = '';
+        if (rex::getUser() && rex::getUser()->isAdmin()) {
+            $configUrl = rex_url::backendPage('dashboard', ['subpage' => 'config']);
+            $configButton = '<a href="' . $configUrl . '" class="btn btn-default" title="' . rex_i18n::msg('dashboard_config_title') . '"><i class="rex-icon fa-cog"></i></a> ';
+        }
+
         return (new rex_fragment([
             'outputActive' => $outputActive,
             'outputInactive' => $outputInactive,
             'widgetSelect' => $select->get(),
+            'configButton' => $configButton,
         ]))->parse('dashboard.php');
     }
 
