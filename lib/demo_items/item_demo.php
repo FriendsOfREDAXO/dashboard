@@ -1,5 +1,10 @@
 <?php
-class rex_dashboard_item_demo extends rex_dashboard_item
+
+namespace FriendsOfREDAXO\Dashboard;
+
+use rex_dashboard_item;
+
+class DashboardItemDemo extends rex_dashboard_item
 {
     public function getData()
     {

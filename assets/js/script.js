@@ -53,6 +53,30 @@
                     continue;
                 }
 
+                // Chart.js Charts neu rendern wenn vorhanden
+                let $chart = $items[i].find('canvas[id^="chart-"]');
+                if ($chart.length && window.Chart) {
+                    let chartId = $chart.attr('id');
+                    if (window.Chart.getChart && window.Chart.getChart(chartId)) {
+                        try {
+                            window.Chart.getChart(chartId).resize();
+                        } catch(e) {
+                            console.log('Chart resize error:', e);
+                        }
+                    }
+                }
+                
+                // Bootstrap Tables neu berechnen
+                $items[i].find('.bootstrap-table').each(function() {
+                    try {
+                        if ($(this).data('bootstrap.table')) {
+                            $(this).bootstrapTable('resetView');
+                        }
+                    } catch(e) {
+                        console.log('Table resize error:', e);
+                    }
+                });
+
                 let cellHeight = Math.ceil(($items[i].find('.panel-body').prop('scrollHeight')
                     + $items[i].find('.panel-heading').outerHeight(true)
                     + $items[i].find('.panel-footer').outerHeight(true)
@@ -127,7 +151,24 @@
         },
         refreshAllWidgets: function()
         {
-            $('.grid-stack .grid-stack-item-refresh').click();
+            let $items = $('.grid-stack .grid-stack-item');
+            let refreshCount = 0;
+            let totalItems = $items.length;
+            
+            if (totalItems === 0) return;
+            
+            $items.each(function() {
+                $(this).find('.grid-stack-item-refresh').click();
+                refreshCount++;
+                
+                // Nach dem letzten Widget-Refresh automatisch Layout anpassen
+                if (refreshCount === totalItems) {
+                    setTimeout(function() {
+                        dashboard.resize();
+                        dashboard.compact();
+                    }, 500);
+                }
+            });
         },
         updateAutoRefreshUI: function()
         {
@@ -270,8 +311,37 @@
             {
                 $parent.find('.grid-stack-item-content .panel-body').html(data[$parent.data('id')].content);
                 $parent.find('.grid-stack-item-content .cache-date .date').html(data[$parent.data('id')].date);
-                $parent.find('.bootstrap-table').bootstrapTable();
+                
+                // Bootstrap Tables initialisieren falls vorhanden
+                $parent.find('.bootstrap-table').each(function() {
+                    if ($(this).hasClass('bootstrap-table')) {
+                        $(this).bootstrapTable('destroy');
+                    }
+                    $(this).bootstrapTable();
+                });
+                
+                // Charts neu rendern falls vorhanden  
+                let $chart = $parent.find('canvas[id^="chart-"]');
+                if ($chart.length && window.Chart) {
+                    setTimeout(function() {
+                        let chartId = $chart.attr('id');
+                        if (window.Chart.getChart && window.Chart.getChart(chartId)) {
+                            try {
+                                window.Chart.getChart(chartId).resize();
+                            } catch(e) {
+                                console.log('Chart update error:', e);
+                            }
+                        }
+                    }, 50);
+                }
+                
                 $parent.removeClass('loading');
+                
+                // Nach dem Reload automatisch Resize durchführen
+                setTimeout(function() {
+                    dashboard.resize();
+                    dashboard.compact();
+                }, 100);
             });
         });
 

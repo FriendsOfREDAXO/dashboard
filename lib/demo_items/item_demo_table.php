@@ -1,6 +1,11 @@
 <?php
 
-class rex_dashboard_item_table_demo extends rex_dashboard_item_table
+namespace FriendsOfREDAXO\Dashboard;
+
+use rex_dashboard_item_table;
+use rex_sql;
+
+class DashboardItemDemoTable extends rex_dashboard_item_table
 {
     protected $header = [];
     protected $data = [];

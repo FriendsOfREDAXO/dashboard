@@ -1,5 +1,10 @@
 <?php
-class rex_dashboard_item_chart_line_demo extends rex_dashboard_item_chart_line
+
+namespace FriendsOfREDAXO\Dashboard;
+
+use rex_dashboard_item_chart_line;
+
+class DashboardItemDemoChartLine extends rex_dashboard_item_chart_line
 {
     public function getChartData()
     {

@@ -15,3 +15,61 @@ dashboard_api_store_failed_user = Zum Speichern des Dashboards muss man angemeld
 dashboard_api_store_success = Speichern des Dashboards erfolgreich.
 
 dashboard_api_get_failed_user = Keine Berechtigung.
+
+# Config
+dashboard_config_title = Dashboard Konfiguration
+dashboard_config_demo_title = Demo-Elemente
+dashboard_config_demo_enabled = Demo-Elemente aktivieren
+dashboard_config_demo_disabled = Deaktiviert
+dashboard_config_saved = Konfiguration erfolgreich gespeichert.
+
+# Default Widgets
+dashboard_recent_articles_title = Zuletzt aktualisierte Artikel
+dashboard_new_articles_title = Neue Artikel (30 Tage)
+dashboard_media_storage_title = Medien-Speicherverbrauch nach Typ
+dashboard_article_status_title = Artikel-Status Übersicht
+dashboard_system_status_title = System-Status
+dashboard_user_activity_title = Benutzer-Aktivität (7 Tage)
+dashboard_addon_updates_title = AddOn Updates & Übersicht
+dashboard_addon_statistics_title = AddOn Statistiken
+dashboard_rss_feed_title = RSS-Feed
+dashboard_countdown_demo_title = Countdown Neujahr
+dashboard_big_number_demo_title = Follower Count
+
+# Tabellen-Überschriften
+dashboard_article = Artikel
+dashboard_category = Kategorie
+dashboard_language = Sprache
+dashboard_updated = Aktualisiert
+dashboard_created = Erstellt
+dashboard_by = Von
+dashboard_no_articles = Keine Artikel gefunden
+dashboard_no_new_articles = Keine neuen Artikel in den letzten 30 Tagen
+dashboard_no_permission = Keine Berechtigung
+dashboard_no_article_permission = Keine Artikel-Berechtigung
+
+# Chart-Daten und Labels
+dashboard_online = Online
+dashboard_offline = Offline
+dashboard_articles_edited = Artikel bearbeitet
+dashboard_articles_created = Artikel erstellt
+dashboard_documents = Dokumente
+dashboard_images = Bilder
+dashboard_videos = Videos
+dashboard_audio = Audio
+dashboard_archives = Archive
+dashboard_web_files = Web-Dateien
+dashboard_other = Sonstige
+dashboard_no_mediapool = Kein Mediapool verfügbar
+dashboard_no_media_files = Keine Mediendateien gefunden
+dashboard_files = Dateien
+dashboard_mb = MB
+dashboard_articles = Artikel
+
+# AddOn Statistics
+dashboard_active_addons = Aktive AddOns
+dashboard_core_addons = Core AddOns
+dashboard_updates = Updates
+dashboard_total = Gesamt
+dashboard_admin_only = Nur für Administratoren verfügbar
+dashboard_inactive_addons_info = AddOn(s) installiert aber nicht aktiviert

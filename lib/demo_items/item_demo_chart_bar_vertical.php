@@ -1,5 +1,10 @@
 <?php
-class rex_dashboard_item_chart_pie_demo extends rex_dashboard_item_chart_pie
+
+namespace FriendsOfREDAXO\Dashboard;
+
+use rex_dashboard_item_chart_bar;
+
+class DashboardItemDemoChartBarVertical extends rex_dashboard_item_chart_bar
 {
     public function getChartData()
     {

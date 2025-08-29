@@ -1,5 +1,10 @@
 <?php
-class rex_dashboard_item_chart_bar_horizontal extends rex_dashboard_item_chart_bar
+
+namespace FriendsOfREDAXO\Dashboard;
+
+use rex_dashboard_item_chart_bar;
+
+class DashboardItemDemoChartBarHorizontal extends rex_dashboard_item_chart_bar
 {
     protected function __construct($id, $name)
     {

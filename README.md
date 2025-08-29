@@ -1,18 +1,260 @@
-# Dashboard für REDAXO 5.x
+# Dashboard AddOn für REDAXO 5.x
 
-Das AddOn `dashboard` ermöglicht es, Daten aus Projekten und AddOns die das Dashboard unterstützen, anzuzeigen
-Ein Dashboard besteht aus mehreren Widgets, die in einer beliebigen Anordnung auf der Startseite des REDAXO-Backends angezeigt werden. Die Widgets können aus verschiedenen Quellen stammen, z.B. aus anderen AddOns, aus eigenen PHP-Dateien oder aus externen Quellen.
+## Version 2.0.0 - Modernisiertes Dashboard mit Standard-Widgets
 
-Zunächst braucht man eine Klasse, die das Widget repräsentiert. Diese Klasse muss von einem der folgenden Dashboard Klassen erben, um eine bestimmte Darstellung zu erzwingen.
+Das Dashboard AddOn ermöglicht es, wichtige Informationen aus REDAXO und anderen AddOns übersichtlich auf der Startseite des Backends anzuzeigen. Mit Version 2.0 wurde das Dashboard grundlegend modernisiert und um Standard-Widgets erweitert.
 
-* rex_dashboard_item
-* rex_dashboard_item_chart_bar
-* rex_dashboard_item_chart_line
-* rex_dashboard_item_chart_pie
-* rex_dashboard_item_chart
-* rex_dashboard_item_table
+## ✨ Neue Features in Version 2.0
 
-Als Beispiele sind hier die Klassen aus dem DemoPlugin aufgeführt:
+### 🎯 Standard-Widgets für REDAXO Core-Funktionen
+
+- **📝 Artikel-Widgets**: Zuletzt bearbeitete und neue Artikel mit Benutzerrechte-Integration
+- **📊 System-Status**: Speicherverbrauch, PHP-Version, Datenbankgröße (nur Admins)
+- **📁 Medien-Speicher**: Kategorisierte Übersicht des Medienpools nach Dateitypen
+- **🔧 AddOn-Verwaltung**: Verfügbare Updates und AddOn-Statistiken (nur Admins)
+- **📡 RSS-Feed**: Konfigurierbare RSS-Feeds mit Paginierung
+- **📈 Artikel-Status**: Übersicht über Online/Offline-Artikel
+
+### 🛡️ Sicherheit und Berechtigungen
+
+- **Benutzerrechte**: Artikel-Widgets berücksichtigen REDAXO-Benutzerberechtigungen
+- **Admin-Widgets**: Sensitive Informationen nur für Administratoren sichtbar
+- **Structure-Permissions**: Integration mit `rex_complex_perm('structure')`
+
+### 🎨 Verbessertes UI/UX
+
+- **Auto-Refresh**: Dashboard lädt automatisch aktuelle Daten beim Aufrufen
+- **Responsive Design**: Optimiert für verschiedene Bildschirmgrößen
+- **Drag & Drop**: Widgets frei positionierbar mit GridStack.js
+- **Konfigurationsseite**: Zentrale Verwaltung aller Widget-Einstellungen
+
+## 🚀 Installation und Aktivierung
+
+1. AddOn installieren und aktivieren
+2. Als Administrator zu **Dashboard > Konfiguration** gehen
+3. "Default Widgets aktivieren" ankreuzen
+4. Gewünschte Widgets auswählen und Größen konfigurieren
+5. Für RSS-Widget: Feed-URL und Namen eingeben
+
+## 📋 Verfügbare Standard-Widgets
+
+| Widget | Beschreibung | Berechtigung | Größe |
+|--------|-------------|--------------|-------|
+| **Zuletzt aktualisierte Artikel** | Die 10 neuesten bearbeiteten Artikel | Structure-Rechte | 2 Spalten |
+| **Neue Artikel (30 Tage)** | Artikel der letzten 30 Tage | Structure-Rechte | 2 Spalten |
+| **Medien-Speicherverbrauch** | Dateityp-kategorisierte Übersicht | Alle User | 1 Spalte |
+| **Artikel-Status** | Online/Offline Artikel-Statistik | Alle User | 1 Spalte |
+| **System-Status** | PHP, MySQL, Speicher-Infos | Nur Admins | 2 Spalten |
+| **AddOn Updates** | Verfügbare Updates anzeigen | Nur Admins | 2 Spalten |
+| **AddOn Statistiken** | Installierte AddOns-Übersicht | Nur Admins | 1 Spalte |
+| **RSS Feed** | Konfigurierbare RSS-Feeds | Alle User | 1-2 Spalten |
+
+## ⚙️ Konfiguration
+
+### Dashboard-Einstellungen
+
+Über **Dashboard > Konfiguration** können Administratoren:
+
+- Default Widgets aktivieren/deaktivieren
+- Widget-Größen konfigurieren (1 oder 2 Spalten)
+- RSS-Feed URL und Namen festlegen
+- Demo-Widgets aktivieren (zu Testzwecken)
+
+### RSS-Widget Konfiguration
+
+```
+RSS Feed URL: https://example.com/feed.xml
+RSS Feed Name: Mein RSS Feed
+Größe: 1 Spalte (klein) oder 2 Spalten (breit)
+```
+
+Das RSS-Widget zeigt 2 Items pro Seite mit Paginierung an.
+
+## 🔧 Entwickler-API
+
+### Eigene Widgets erstellen
+
+```php
+class MeinCustomWidget extends rex_dashboard_item
+{
+    public function getTitle(): string
+    {
+        return 'Mein Custom Widget';
+    }
+
+    public function getData()
+    {
+        return '<p>Hier steht der Inhalt</p>';
+    }
+}
+```
+
+### Widget registrieren
+
+```php
+// In der boot.php des eigenen AddOns
+if (rex::isBackend() && rex_addon::exists('dashboard')) {
+    rex_dashboard::addItem(
+        MeinCustomWidget::factory('mein-widget-id', 'Mein Widget')
+            ->setColumns(2) // 1 oder 2 Spalten
+    );
+}
+```
+
+### Verfügbare Basis-Klassen
+
+- `rex_dashboard_item` - Basis-Widget
+- `rex_dashboard_item_chart_bar` - Balkendiagramm
+- `rex_dashboard_item_chart_line` - Liniendiagramm  
+- `rex_dashboard_item_chart_pie` - Kreisdiagramm
+- `rex_dashboard_item_table` - Tabellen-Widget
+
+## 📊 Widget-Typen im Detail
+
+### Chart-Widgets
+
+```php
+class MeinChartWidget extends rex_dashboard_item_chart_bar
+{
+    public function getChartData()
+    {
+        return [
+            'Label 1' => 42,
+            'Label 2' => 37,
+            'Label 3' => 28
+        ];
+    }
+}
+```
+
+### Tabellen-Widgets
+
+```php
+class MeinTabellenWidget extends rex_dashboard_item_table
+{
+    public function getTableData()
+    {
+        return [
+            'headers' => ['Name', 'Wert', 'Status'],
+            'rows' => [
+                ['Eintrag 1', '100', 'Aktiv'],
+                ['Eintrag 2', '200', 'Inaktiv']
+            ]
+        ];
+    }
+}
+```
+
+## 🔐 Berechtigungen und Sicherheit
+
+### Structure-Berechtigungen
+
+Artikel-Widgets prüfen automatisch:
+
+```php
+$user = rex::requireUser();
+$structurePerm = $user->getComplexPerm('structure');
+if ($structurePerm->hasCategoryPerm($categoryId)) {
+    // User hat Zugriff auf diese Kategorie
+}
+```
+
+### Admin-Only Widgets
+
+```php
+if (rex::getUser() && rex::getUser()->isAdmin()) {
+    // Widget nur für Admins registrieren
+    rex_dashboard::addItem(AdminWidget::factory('admin-widget', 'Admin Widget'));
+}
+```
+
+## 🎛️ Erweiterte Features
+
+### Auto-Refresh
+
+- Dashboard refresht automatisch beim Laden (500ms Verzögerung)
+- Automatisches Refresh alle 5 Minuten
+- Manueller Refresh über Refresh-Button
+
+### GridStack Integration
+
+- Drag & Drop Positionierung
+- Automatische Größenanpassung
+- Benutzer-spezifische Layouts (je User individuell gespeichert)
+- Responsive Breakpoints
+
+### Multi-Language Support
+
+- Widgets passen sich automatisch an verfügbare Sprachen an  
+- Sprachenspalten werden nur angezeigt wenn > 1 Sprache vorhanden
+
+## 📱 Responsive Design
+
+Das Dashboard passt sich automatisch an verschiedene Bildschirmgrößen an:
+
+- **Desktop**: Vollständiges Grid mit Drag & Drop
+- **Tablet**: Optimierte Spaltenbreiten  
+- **Mobile**: Single-Column Layout mit vertikalem Scrolling
+
+## 🔄 Migration von Version 1.x
+
+### Automatische Migration
+
+- Demo-Plugin wird automatisch aufgelöst
+- Bestehende Widget-Positionen bleiben erhalten
+- Neue Standard-Widgets werden deaktiviert hinzugefügt
+
+### Breaking Changes
+
+- Demo-Plugin entfernt (Funktionalität ins Core integriert)
+- Neue Konfigurationsstruktur
+- Widget-IDs geändert (`dashboard-default-*` Präfix)
+
+## 🐛 Debugging
+
+### Debug-Modus
+
+Im REDAXO Debug-Modus werden zusätzliche Informationen angezeigt:
+
+- Widget-Ladezeiten
+- Berechtigungsprüfungen  
+- Cache-Status
+- JavaScript-Fehler
+
+### Log-Dateien
+
+Fehler werden in REDAXO's System-Log geschrieben:
+```
+redaxo/data/log/system.log
+```
+
+## 🤝 Kompatibilität
+
+- **REDAXO**: >= 5.11.0
+- **PHP**: >= 7.4
+- **Browser**: Moderne Browser mit ES6-Support
+- **Mobile**: iOS Safari, Chrome Mobile, Firefox Mobile
+
+## 📄 Lizenz
+
+MIT License - siehe LICENSE-Datei
+
+## 👥 Credits
+
+- **Entwicklung**: Friends of REDAXO
+- **GridStack**: https://gridstackjs.com/
+- **Chart.js**: https://www.chartjs.org/
+- **Bootstrap**: https://getbootstrap.com/
+
+## 📞 Support
+
+- **GitHub**: https://github.com/FriendsOfREDAXO/dashboard
+- **REDAXO Slack**: #addons Channel
+- **Forum**: https://redaxo.org/forum/
+
+---
+
+**Dashboard AddOn 2.0** - Modernes Dashboard für REDAXO 5.x mit Standard-Widgets, Sicherheitsfeatures und verbessertem UX.
 
 ### rex_dashboard_item
 
