@@ -18,16 +18,16 @@ class DashboardDefault
     {
         $addon = rex_addon::get('dashboard');
         
-        // TEMPORÄR: Lade immer die Default-Widgets für Debugging
         // Prüfe ob Default-Widgets aktiviert sind
-        // if (!$addon->getConfig('default_widgets_enabled', false)) {
-        //     return;
-        // }
+        if (!$addon->getConfig('default_widgets_enabled', false)) {
+            return;
+        }
         
         // Zuletzt aktualisierte Artikel
         if ($addon->getConfig('default_recent_articles', true)) {
             \rex_dashboard::addItem(
                 DashboardItemRecentArticles::factory('dashboard-default-recent-articles', 'Zuletzt aktualisierte Artikel')
+                    ->setColumns($addon->getConfig('default_recent_articles_columns', 2))
             );
         }
         
@@ -64,14 +64,6 @@ class DashboardDefault
             );
         }
         
-        // Benutzer-Aktivität (Chart)
-        if ($addon->getConfig('default_user_activity', true)) {
-            \rex_dashboard::addItem(
-                DashboardItemUserActivity::factory('dashboard-default-user-activity', 'Benutzer-Aktivität')
-                    ->setColumns($addon->getConfig('default_user_activity_columns', 2))
-            );
-        }
-        
         // AddOn Updates (nur für Admins)
         if ($addon->getConfig('default_addon_updates', true) && rex::getUser() && rex::getUser()->isAdmin()) {
             \rex_dashboard::addItem(
@@ -87,6 +79,28 @@ class DashboardDefault
                     ->setColumns($addon->getConfig('default_addon_statistics_columns', 1))
             );
         }
+        
+        // RSS-Feed Widget (Clean Version ohne Bootstrap Table)
+        \rex_dashboard::addItem(
+            DashboardItemRssClean::factory('dashboard-default-rss-feed', 'RSS-Feed')
+                ->setColumns($addon->getConfig('default_rss_feed_columns', 2))
+        );
+        
+        // Demo Countdown Widget (kompakt)
+        if ($addon->getConfig('default_countdown_demo', true)) {
+            \rex_dashboard::addItem(
+                DashboardItemCountdownDemo::factory('dashboard-default-countdown-demo', 'Countdown Neujahr')
+                    ->setColumns($addon->getConfig('default_countdown_demo_columns', 1))
+            );
+        }
+        
+        // Big Number Demo Widget (kompakt)  
+        if ($addon->getConfig('default_big_number_demo', true)) {
+            \rex_dashboard::addItem(
+                DashboardItemBigNumberDemo::factory('dashboard-default-big-number-demo', 'Follower Count')
+                    ->setColumns($addon->getConfig('default_big_number_demo_columns', 1))
+            );
+        }
     }
     
     /**
@@ -98,23 +112,35 @@ class DashboardDefault
         
         // Setze Default-Werte für alle Widgets
         $defaults = [
+            // Debug-Modus temporär aktiviert  
+            'debug' => false,
             'default_widgets_enabled' => false,  // Muss explizit aktiviert werden
             'default_recent_articles' => true,
-            'default_recent_articles_columns' => 2, // breit
+            'default_recent_articles_columns' => 2, // normal breit (2 Spalten)
             'default_new_articles' => true,
-            'default_new_articles_columns' => 2,    // breit
+            'default_new_articles_columns' => 2,    // normal breit (2 Spalten)
             'default_media_storage' => true,
             'default_media_storage_columns' => 1,   // klein
             'default_article_status' => true,
             'default_article_status_columns' => 1,  // klein
             'default_system_status' => true,
             'default_system_status_columns' => 2,   // breit
-            'default_user_activity' => true,
-            'default_user_activity_columns' => 2,   // breit
             'default_addon_updates' => true,
             'default_addon_updates_columns' => 2,   // breit
             'default_addon_statistics' => true,
             'default_addon_statistics_columns' => 1, // klein
+            'default_rss_feed' => true,
+            'default_rss_feed_columns' => 2,        // breit
+            'default_countdown_demo' => true,
+            'default_countdown_demo_columns' => 1,   // klein (1 Spalte)
+            'default_big_number_demo' => true,
+            'default_big_number_demo_columns' => 1,  // klein (1 Spalte)
+            'rss_feed_url' => '',
+            'rss_items_per_page' => 2,
+            // RSS-Feeds Konfiguration - KEINE Standard-URLs setzen!
+            'rss_feeds' => [
+                // User soll eigene RSS-Feeds konfigurieren
+            ],
         ];
         
         foreach ($defaults as $key => $defaultValue) {

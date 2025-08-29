@@ -61,6 +61,11 @@ class DashboardDemo
             rex_dashboard::addItem(
                 DashboardItemDemoChartLine::factory('dashboard-demo-chart-line', 'Liniendiagramm')
             );
+            
+            rex_dashboard::addItem(
+                DashboardItemDemoBigNumber::factory('dashboard-demo-big-number', 'Big Number Demo')
+                    ->setColumns(1) // Als kleines Widget
+            );
         }
     }
 }

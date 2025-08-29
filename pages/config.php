@@ -70,6 +70,27 @@ foreach ($defaultWidgets as $configKey => $label) {
     $select->addOption('Breit (2 Spalten)', '2');
 }
 
+// RSS Feed Widget
+$field = $form->addCheckboxField('default_rss_feed');
+$field->addOption('RSS Feed Widget', '1');
+
+// RSS Feed URL
+$field = $form->addTextField('rss_feed_url');
+$field->setLabel('RSS Feed URL');
+$field->setNotice('URL des RSS/Atom Feeds (z.B. https://example.com/feed.xml)');
+
+// RSS Feed Name
+$field = $form->addTextField('rss_feed_name');
+$field->setLabel('RSS Feed Name');
+$field->setNotice('Name des Feeds für die Anzeige im Dashboard');
+
+// RSS Feed Größe
+$sizeField = $form->addSelectField('default_rss_feed_columns', null, ['class' => 'form-control widget-size-select', 'data-widget' => 'default_rss_feed']);
+$sizeField->setLabel('Größe (RSS Feed Widget)');
+$select = $sizeField->getSelect();
+$select->addOption('Klein (1 Spalte)', '1');
+$select->addOption('Breit (2 Spalten)', '2');
+
 echo '</div>';
 
 // JavaScript für Show/Hide der Widget-Optionen und Size-Controls
@@ -87,13 +108,23 @@ $(document).ready(function() {
     function toggleWidgetSizeOptions() {
         $(".widget-size-select").each(function() {
             var widgetKey = $(this).data("widget");
-            var widgetEnabled = $(\'[name="config[\' + widgetKey + \']"]\').is(":checked");
+            var widgetEnabled = $(\'input[name="config[\' + widgetKey + \']"]\').is(":checked");
             if (widgetEnabled) {
                 $(this).closest(".rex-form-group").show();
             } else {
                 $(this).closest(".rex-form-group").hide();
             }
         });
+        
+        // Spezielle Behandlung für RSS Feed
+        var rssEnabled = $(\'input[name="config[default_rss_feed]"]\').is(":checked");
+        if (rssEnabled) {
+            $(\'input[name="config[rss_feed_url]"]\').closest(".rex-form-group").show();
+            $(\'input[name="config[rss_feed_name]"]\').closest(".rex-form-group").show();
+        } else {
+            $(\'input[name="config[rss_feed_url]"]\').closest(".rex-form-group").hide();
+            $(\'input[name="config[rss_feed_name]"]\').closest(".rex-form-group").hide();
+        }
     }
     
     // Initial state
