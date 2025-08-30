@@ -65,6 +65,22 @@ class DashboardDefault
             );
         }
         
+        // Backup-Status (nur für Admins)
+        if ($addon->getConfig('default_backup_status', true) && rex::getUser() && rex::getUser()->isAdmin()) {
+            \rex_dashboard::addItem(
+                DashboardItemBackupStatus::factory('dashboard-default-backup-status', rex_i18n::msg('dashboard_backup_status_title', 'Backup-Status'))
+                    ->setColumns($addon->getConfig('default_backup_status_columns', 1))
+            );
+        }
+        
+        // Uhr Widget
+        if ($addon->getConfig('default_clock', true)) {
+            \rex_dashboard::addItem(
+                DashboardItemClock::factory('dashboard-default-clock', rex_i18n::msg('dashboard_clock_title', 'Uhr'))
+                    ->setColumns($addon->getConfig('default_clock_columns', 1))
+            );
+        }
+        
         // AddOn Updates (nur für Admins)
         if ($addon->getConfig('default_addon_updates', true) && rex::getUser() && rex::getUser()->isAdmin()) {
             \rex_dashboard::addItem(
@@ -135,6 +151,10 @@ class DashboardDefault
             'default_article_status_columns' => 1,  // klein
             'default_system_status' => true,
             'default_system_status_columns' => 2,   // breit
+            'default_backup_status' => true,
+            'default_backup_status_columns' => 1,   // klein
+            'default_clock' => true,
+            'default_clock_columns' => 1,           // klein
             'default_addon_updates' => true,
             'default_addon_updates_columns' => 2,   // breit
             'default_addon_statistics' => true,
