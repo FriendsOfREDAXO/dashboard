@@ -158,3 +158,63 @@
     animation:fa-spin 1s infinite steps(8);
     font-size: 2em;
 }
+
+/* Light Theme + Auto Theme + Default Style - Blaue Header (NICHT für Dark Theme) */
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading,
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading,
+body.rex-theme-light #rex-dashboard .panel .panel-heading,
+body.rex-theme-light #rex-dashboard .panel header.panel-heading,
+body.rex-theme-light #rex-dashboard header.panel-heading,
+body.rex-theme-light #rex-dashboard .panel-heading,
+body.rex-theme-auto #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading,
+body.rex-theme-auto #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading,
+body.rex-theme-auto #rex-dashboard .panel .panel-heading,
+body.rex-theme-auto #rex-dashboard .panel header.panel-heading,
+body.rex-theme-auto #rex-dashboard header.panel-heading,
+body.rex-theme-auto #rex-dashboard .panel-heading,
+body:not(.rex-theme-dark) #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading,
+body:not(.rex-theme-dark) #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading,
+body:not(.rex-theme-dark) #rex-dashboard .panel .panel-heading,
+body:not(.rex-theme-dark) #rex-dashboard .panel header.panel-heading,
+body:not(.rex-theme-dark) #rex-dashboard header.panel-heading,
+body:not(.rex-theme-dark) #rex-dashboard .panel-heading {
+    background: #4b9ad9 !important;
+    color: white !important;
+    border-bottom: 1px solid #3a8bc8 !important;
+}
+
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title,
+body.rex-theme-light #rex-dashboard .panel .panel-title,
+body.rex-theme-light #rex-dashboard header.panel-heading .panel-title,
+body.rex-theme-light #rex-dashboard .panel-heading .panel-title,
+body.rex-theme-auto #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title,
+body.rex-theme-auto #rex-dashboard .panel .panel-title,
+body.rex-theme-auto #rex-dashboard header.panel-heading .panel-title,
+body.rex-theme-auto #rex-dashboard .panel-heading .panel-title,
+body:not(.rex-theme-dark) #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title,
+body:not(.rex-theme-dark) #rex-dashboard .panel .panel-title,
+body:not(.rex-theme-dark) #rex-dashboard header.panel-heading .panel-title,
+body:not(.rex-theme-dark) #rex-dashboard .panel-heading .panel-title {
+    color: white !important;
+}
+
+/* Light Theme + Auto Theme + Default Style - Actions in blauem Header (NICHT für Dark Theme) */
+body.rex-theme-light #rex-dashboard .panel-heading .actions > *,
+body.rex-theme-light #rex-dashboard header.panel-heading .actions > *,
+body.rex-theme-auto #rex-dashboard .panel-heading .actions > *,
+body.rex-theme-auto #rex-dashboard header.panel-heading .actions > *,
+body:not(.rex-theme-dark) #rex-dashboard .panel-heading .actions > *,
+body:not(.rex-theme-dark) #rex-dashboard header.panel-heading .actions > * {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.rex-theme-light #rex-dashboard .panel-heading .actions > *:hover,
+body.rex-theme-light #rex-dashboard header.panel-heading .actions > *:hover,
+body.rex-theme-auto #rex-dashboard .panel-heading .actions > *:hover,
+body.rex-theme-auto #rex-dashboard header.panel-heading .actions > *:hover,
+body:not(.rex-theme-dark) #rex-dashboard .panel-heading .actions > *:hover,
+body:not(.rex-theme-dark) #rex-dashboard header.panel-heading .actions > *:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: white !important;
+}

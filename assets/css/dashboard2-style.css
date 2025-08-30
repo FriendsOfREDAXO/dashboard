@@ -1,0 +1,551 @@
+/**
+ * Dashboard - Dashboard 2.0 Design Integration
+ * Modern Widget Dashboard Styles adapted from Dashboard2
+ */
+
+/* CSS Variables für Light/Dark Theme - Dashboard 2.0 Style */
+:root {
+    --dashboard-bg: #f8f9fa;
+    --dashboard-widget-bg: #fff;
+    --dashboard-widget-border: #ddd;
+    --dashboard-text-color: #333;
+    --dashboard-text-muted: #666;
+    --dashboard-hover-bg: rgba(0,0,0,0.05);
+    --dashboard-shadow: rgba(0,0,0,0.1);
+    --dashboard-shadow-hover: rgba(0,0,0,0.15);
+    --dashboard-primary: #337ab7;
+    --dashboard-success: #5cb85c;
+    --dashboard-warning: #f0ad4e;
+    --dashboard-danger: #d9534f;
+}
+
+/* System Dark Mode */
+@media (prefers-color-scheme: dark) {
+    body:not(.rex-theme-light) {
+        --dashboard-bg: #1a1a1a;
+        --dashboard-widget-bg: rgba(50, 64, 80, 0.4);
+        --dashboard-widget-border: rgba(255, 255, 255, 0.1);
+        --dashboard-text-color: #e2e8f0;
+        --dashboard-text-muted: #94a3b8;
+        --dashboard-hover-bg: rgba(255,255,255,0.06);
+        --dashboard-shadow: rgba(50, 64, 80, 0.3);
+        --dashboard-shadow-hover: rgba(50, 64, 80, 0.4);
+    }
+}
+
+/* REDAXO Light Theme */
+body.rex-theme-light {
+    --dashboard-bg: #f8f9fa !important;
+    --dashboard-widget-bg: #fff !important;
+    --dashboard-widget-border: #ddd !important;
+    --dashboard-text-color: #333 !important;
+    --dashboard-text-muted: #666 !important;
+    --dashboard-hover-bg: rgba(0,0,0,0.05) !important;
+    --dashboard-shadow: rgba(0,0,0,0.1) !important;
+    --dashboard-shadow-hover: rgba(0,0,0,0.15) !important;
+}
+
+/* REDAXO Dark Theme */
+body.rex-theme-dark {
+    --dashboard-bg: #1a1a1a !important;
+    --dashboard-widget-bg: rgba(50, 64, 80, 0.4) !important;
+    --dashboard-widget-border: rgba(255, 255, 255, 0.1) !important;
+    --dashboard-text-color: #e2e8f0 !important;
+    --dashboard-text-muted: #94a3b8 !important;
+    --dashboard-hover-bg: rgba(255,255,255,0.06) !important;
+    --dashboard-shadow: rgba(50, 64, 80, 0.3) !important;
+    --dashboard-shadow-hover: rgba(50, 64, 80, 0.4) !important;
+}
+
+/* Main Dashboard Override */
+#rex-dashboard {
+    background: transparent;
+    margin: 0;
+}
+
+/* Grid-Stack Item Redesign - Dashboard 2.0 Style */
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel {
+    background: var(--dashboard-widget-bg);
+    border: 1px solid var(--dashboard-widget-border);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--dashboard-shadow);
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel:hover {
+    box-shadow: 0 4px 16px var(--dashboard-shadow-hover);
+    transform: translateY(-1px);
+}
+
+/* Panel Header Redesign */
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading,
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading {
+    background: var(--dashboard-widget-bg);
+    border-bottom: 1px solid var(--dashboard-widget-border);
+    color: var(--dashboard-text-color);
+    font-weight: 600;
+    padding: 12px 16px;
+    position: relative;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title {
+    color: var(--dashboard-text-color);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding-right: 60px; /* Platz für Actions schaffen */
+}
+
+/* Light Theme - Blaue Header für alle panel-heading Elemente - MAXIMUM SPECIFICITY */
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading,
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading,
+body.rex-theme-light #rex-dashboard .panel .panel-heading,
+body.rex-theme-light #rex-dashboard .panel header.panel-heading,
+body.rex-theme-light #rex-dashboard header.panel-heading,
+body.rex-theme-light #rex-dashboard .panel-heading {
+    background: #4b9ad9 !important;
+    background-color: #4b9ad9 !important;
+    color: white !important;
+    border-bottom: 1px solid #3a8bc8 !important;
+    border-bottom-color: #3a8bc8 !important;
+}
+
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title,
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading .panel-title,
+body.rex-theme-light #rex-dashboard .panel .panel-title,
+body.rex-theme-light #rex-dashboard .panel header.panel-heading .panel-title,
+body.rex-theme-light #rex-dashboard header.panel-heading .panel-title,
+body.rex-theme-light #rex-dashboard .panel-heading .panel-title {
+    color: white !important;
+}
+
+/* Light Theme - Actions in blauem Header - MAXIMUM SPECIFICITY */
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading .actions > *,
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading .actions > *,
+body.rex-theme-light #rex-dashboard .panel .panel-heading .actions > *,
+body.rex-theme-light #rex-dashboard .panel header.panel-heading .actions > *,
+body.rex-theme-light #rex-dashboard header.panel-heading .actions > *,
+body.rex-theme-light #rex-dashboard .panel-heading .actions > * {
+    background: rgba(255, 255, 255, 0.15) !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading .actions > *:hover,
+body.rex-theme-light #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel header.panel-heading .actions > *:hover,
+body.rex-theme-light #rex-dashboard .panel .panel-heading .actions > *:hover,
+body.rex-theme-light #rex-dashboard .panel header.panel-heading .actions > *:hover,
+body.rex-theme-light #rex-dashboard header.panel-heading .actions > *:hover,
+body.rex-theme-light #rex-dashboard .panel-heading .actions > *:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    color: white !important;
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title {
+    color: var(--dashboard-text-color);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding-right: 60px; /* Platz für Actions schaffen */
+}
+
+/* Panel Body Redesign */
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-body {
+    background: var(--dashboard-widget-bg);
+    color: var(--dashboard-text-color);
+    padding: 16px;
+    overflow: auto;
+}
+
+/* Panel Footer */
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-footer {
+    background: var(--dashboard-widget-bg);
+    border-top: 1px solid var(--dashboard-widget-border);
+    color: var(--dashboard-text-muted);
+    padding: 8px 16px;
+    font-size: 12px;
+}
+
+/* Actions in Header */
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading .actions {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    gap: 4px;
+    z-index: 5;
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel:hover .panel-heading .actions {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading .actions > * {
+    background: var(--dashboard-hover-bg);
+    border-radius: 4px;
+    color: var(--dashboard-text-muted);
+    cursor: pointer;
+    padding: 4px 6px;
+    transition: all 0.2s ease;
+    font-size: 12px;
+    line-height: 1;
+    min-width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading .actions > *:hover {
+    background: var(--dashboard-text-muted);
+    color: var(--dashboard-widget-bg);
+    transform: scale(1.05);
+}
+
+/* Panel Title Padding für Actions */
+#rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-title {
+    color: var(--dashboard-text-color);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding-right: 60px; /* Platz für Actions schaffen */
+}
+
+/* Toolbar Redesign - Compact & Right Aligned mit Rahmen */
+#rex-dashboard-settings {
+    background: var(--dashboard-widget-bg) !important;
+    border: 1px solid var(--dashboard-widget-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px var(--dashboard-shadow) !important;
+    margin-bottom: 20px !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    width: auto !important;
+    max-width: 300px !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+#rex-dashboard-settings .actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin: 0 !important;
+}
+
+#rex-dashboard-settings ul.actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+#rex-dashboard-settings ul.actions li {
+    background: var(--dashboard-hover-bg) !important;
+    border-radius: 6px !important;
+    color: var(--dashboard-text-muted) !important;
+    cursor: pointer !important;
+    list-style: none !important;
+    padding: 8px 10px !important;
+    position: relative !important;
+    transition: all 0.2s ease !important;
+    display: inline-block !important;
+    margin: 0 !important;
+}
+
+#rex-dashboard-settings ul.actions li:hover {
+    background: var(--dashboard-text-muted) !important;
+    color: var(--dashboard-widget-bg) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Bootstrap Select auch im Rahmen */
+#rex-dashboard-settings > .bootstrap-select.form-control:not([class*="col-"]) {
+    width: auto !important;
+    margin-right: 8px !important;
+}
+
+#rex-dashboard-settings > .bootstrap-select .btn {
+    background: var(--dashboard-hover-bg) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    color: var(--dashboard-text-color) !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+#rex-dashboard-settings > .bootstrap-select .btn:hover,
+#rex-dashboard-settings > .bootstrap-select.open .btn {
+    background: var(--dashboard-text-muted) !important;
+    color: var(--dashboard-widget-bg) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Tooltips */
+#rex-dashboard-settings ul.actions li span {
+    background: var(--dashboard-text-color);
+    border-radius: 4px;
+    color: var(--dashboard-widget-bg);
+    font-size: 12px;
+    opacity: 0;
+    padding: 4px 8px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: -8px;
+    transform: translateY(-100%);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+#rex-dashboard-settings ul.actions li:hover span {
+    opacity: 1;
+    transform: translateY(-100%) translateY(-4px);
+}
+
+/* Bootstrap Select Widget Selector - auch rechts und kompakt */
+#rex-dashboard-settings > .bootstrap-select.form-control:not([class*="col-"]) {
+    width: auto;
+    margin-right: 12px;
+}
+
+#rex-dashboard-settings > .bootstrap-select .btn {
+    background: var(--dashboard-widget-bg);
+    border: 1px solid var(--dashboard-widget-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px var(--dashboard-shadow);
+    color: var(--dashboard-text-color);
+    font-size: 13px;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+}
+
+#rex-dashboard-settings > .bootstrap-select .btn:hover,
+#rex-dashboard-settings > .bootstrap-select.open .btn {
+    background: var(--dashboard-hover-bg);
+    border-color: var(--dashboard-text-muted);
+    box-shadow: 0 2px 6px var(--dashboard-shadow-hover);
+    transform: translateY(-1px);
+}
+
+/* Tooltips */
+#rex-dashboard-settings ul.actions li span {
+    background: var(--dashboard-text-color);
+    border-radius: 4px;
+    color: var(--dashboard-widget-bg);
+    font-size: 12px;
+    opacity: 0;
+    padding: 4px 8px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: -8px;
+    transform: translateY(-100%);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+#rex-dashboard-settings ul.actions li:hover span {
+    opacity: 1;
+    transform: translateY(-100%) translateY(-4px);
+}
+
+/* Table Styles */
+#rex-dashboard .table {
+    background: transparent;
+    color: var(--dashboard-text-color);
+}
+
+#rex-dashboard .table th {
+    background: transparent;
+    border-bottom: 1px solid var(--dashboard-widget-border);
+    color: var(--dashboard-text-color);
+    font-weight: 600;
+}
+
+#rex-dashboard .table td {
+    border-top: 1px solid var(--dashboard-widget-border);
+    color: var(--dashboard-text-color);
+}
+
+#rex-dashboard .table-condensed td,
+#rex-dashboard .table-condensed th {
+    padding: 6px;
+}
+
+/* Alert Styles */
+#rex-dashboard .alert {
+    border-radius: 6px;
+    color: var(--dashboard-text-color);
+}
+
+#rex-dashboard .alert-info {
+    background-color: rgba(91, 192, 222, 0.1);
+    border-color: rgba(91, 192, 222, 0.3);
+}
+
+#rex-dashboard .alert-warning {
+    background-color: rgba(240, 173, 78, 0.1);
+    border-color: rgba(240, 173, 78, 0.3);
+}
+
+#rex-dashboard .alert-danger {
+    background-color: rgba(217, 83, 79, 0.1);
+    border-color: rgba(217, 83, 79, 0.3);
+}
+
+#rex-dashboard .alert-success {
+    background-color: rgba(92, 184, 92, 0.1);
+    border-color: rgba(92, 184, 92, 0.3);
+}
+
+/* Badge/Label Styles */
+#rex-dashboard .label {
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+}
+
+#rex-dashboard .label-danger {
+    background-color: var(--dashboard-danger);
+    color: white;
+}
+
+#rex-dashboard .label-warning {
+    background-color: var(--dashboard-warning);
+    color: white;
+}
+
+#rex-dashboard .label-info {
+    background-color: var(--dashboard-primary);
+    color: white;
+}
+
+#rex-dashboard .label-success {
+    background-color: var(--dashboard-success);
+    color: white;
+}
+
+/* Text Colors */
+#rex-dashboard .text-muted {
+    color: var(--dashboard-text-muted) !important;
+}
+
+#rex-dashboard .text-primary {
+    color: var(--dashboard-primary) !important;
+}
+
+/* Loading Animation */
+#rex-dashboard .grid-stack > .grid-stack-item.loading .panel-body::after {
+    background-color: rgba(var(--dashboard-widget-bg), 0.9);
+}
+
+#rex-dashboard .grid-stack > .grid-stack-item.loading .panel-body::before {
+    color: var(--dashboard-text-muted);
+}
+
+/* Auto-refresh Animation */
+#rex-dashboard-settings ul.actions li#rex-dashboard-auto-refresh.active i {
+    animation: dashboard-pulse 2s infinite;
+    color: var(--dashboard-success);
+}
+
+#rex-dashboard-settings ul.actions li#rex-dashboard-auto-refresh.paused i {
+    color: var(--dashboard-warning);
+}
+
+@keyframes dashboard-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Clock Widget Specific */
+.clock-face {
+    background: var(--dashboard-widget-bg);
+    border: 2px solid var(--dashboard-widget-border);
+    box-shadow: 0 2px 8px var(--dashboard-shadow);
+}
+
+.clock-hand {
+    background: var(--dashboard-text-color);
+}
+
+.second-hand {
+    background: var(--dashboard-danger) !important;
+}
+
+.clock-number {
+    color: var(--dashboard-text-color);
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+    #rex-dashboard-settings {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    #rex-dashboard-settings ul.actions {
+        justify-content: center;
+    }
+    
+    #rex-dashboard .grid-stack > .grid-stack-item > .grid-stack-item-content .panel .panel-heading .actions {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* Smooth Transitions */
+* {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Widget Specific Enhancements */
+#rex-dashboard .backup-status-widget .panel-success {
+    border-color: rgba(92, 184, 92, 0.3);
+}
+
+#rex-dashboard .backup-status-widget .panel-warning {
+    border-color: rgba(240, 173, 78, 0.3);
+}
+
+#rex-dashboard .backup-status-widget .panel-danger {
+    border-color: rgba(217, 83, 79, 0.3);
+}
+
+/* Scrollbar Styling for Dark Theme */
+#rex-dashboard .panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#rex-dashboard .panel-body::-webkit-scrollbar-track {
+    background: var(--dashboard-widget-border);
+    border-radius: 3px;
+}
+
+#rex-dashboard .panel-body::-webkit-scrollbar-thumb {
+    background: var(--dashboard-text-muted);
+    border-radius: 3px;
+}
+
+#rex-dashboard .panel-body::-webkit-scrollbar-thumb:hover {
+    background: var(--dashboard-text-color);
+}
