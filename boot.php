@@ -25,6 +25,7 @@ if (rex::isBackend()) {
 
     if ('dashboard' == rex_be_controller::getCurrentPagePart(1)) {
         rex_view::addCssFile($addon->getAssetsUrl('css/style.css'));
+        rex_view::addCssFile($addon->getAssetsUrl('css/dashboard2-style.css'));
         
         // Bootstrap Table JS (für Tabellen-Widgets)
         rex_view::addJsFile($addon->getAssetsUrl('js/table.min.js'));
