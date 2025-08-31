@@ -12,7 +12,91 @@
     --dashboard-text-muted: #666;
     --dashboard-hover-bg: rgba(0,0,0,0.05);
     --dashboard-shadow: rgba(0,0,0,0.1);
-    --dashboard-shadow-hover: rgba(0,0,0,0.15);
+    --dashboard-shadow-hover: rgba(@keyframes dashboard-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Enhanced loading states and refresh indicators */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes dashboardPulse {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(51, 122, 183, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(51, 122, 183, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(51, 122, 183, 0);
+    }
+}
+
+#rex-dashboard .grid-stack-item.refreshing-active {
+    border: 2px solid var(--dashboard-primary) !important;
+    animation: dashboardPulse 2s infinite;
+    position: relative;
+    z-index: 100;
+}
+
+#rex-dashboard .grid-stack-item.refreshing-active .panel {
+    box-shadow: 0 4px 8px rgba(51, 122, 183, 0.3);
+}
+
+.refresh-indicator {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: var(--dashboard-primary) !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    z-index: 9999 !important;
+    font-size: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+    animation: slideInRight 0.3s ease-out !important;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* Enhanced loading state */
+#rex-dashboard .grid-stack-item.loading .panel-body {
+    position: relative;
+    opacity: 0.6;
+}
+
+#rex-dashboard .grid-stack-item.loading .panel-body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(var(--dashboard-widget-bg-rgb, 255, 255, 255), 0.8);
+    z-index: 10;
+}
+
+#rex-dashboard .grid-stack-item.loading .panel-body::before {
+    content: '\f021';
+    font-family: 'FontAwesome';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    animation: fa-spin 1s infinite linear;
+    z-index: 11;
+    color: var(--dashboard-primary);
+},0.15);
     --dashboard-primary: #337ab7;
     --dashboard-success: #5cb85c;
     --dashboard-warning: #f0ad4e;

@@ -19,6 +19,13 @@ class DashboardItemSystemStatus extends rex_dashboard_item
         return rex_i18n::msg('dashboard_system_status_title', 'System-Status');
     }
 
+    public function isAvailable(): bool
+    {
+        // Nur für Admins verfügbar
+        $user = rex::getUser();
+        return $user && $user->isAdmin();
+    }
+
     public function getData()
     {
         // System-Informationen sammeln

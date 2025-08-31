@@ -31,6 +31,7 @@ dashboard_article_status_title = Article status overview
 dashboard_system_status_title = System Status
 dashboard_backup_status_title = Backup Status
 dashboard_clock_title = Clock
+dashboard_system_log_title = System Log
 dashboard_user_activity_title = User Activity (7 days)
 dashboard_addon_updates_title = AddOn Management
 dashboard_addon_statistics_title = AddOn Statistics
@@ -67,6 +68,8 @@ dashboard_no_media_files = No media files found
 dashboard_files = files
 dashboard_mb = MB
 dashboard_articles = articles
+dashboard_active_users = Active Users
+dashboard_backend_logins = Backend Logins
 
 # AddOn Statistics
 dashboard_active_addons = Active AddOns
@@ -75,3 +78,18 @@ dashboard_updates = Updates
 dashboard_total = Total
 dashboard_admin_only = Available for administrators only
 dashboard_inactive_addons_info = AddOn(s) installed but not activated
+dashboard_system_log_view_all = View full log
+dashboard_refreshing_widget = Refreshing Widget
+dashboard_refresh_complete = Refresh completed
+
+# Quick Notes Widget
+dashboard_quick_notes_title = Quick Notes
+dashboard_quick_notes_placeholder = Here you can write down your personal notes and ideas...
+dashboard_quick_notes_save = Save
+dashboard_quick_notes_clear = Clear
+dashboard_quick_notes_confirm_clear = Do you really want to delete all notes?
+dashboard_quick_notes_saved = Notes saved successfully!
+dashboard_quick_notes_error = Error saving notes!
+dashboard_quick_notes_unsaved = You have unsaved changes in your notes.
+dashboard_saving = Saving...
+dashboard_saved = Saved

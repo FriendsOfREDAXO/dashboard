@@ -4,6 +4,7 @@ namespace FriendsOfREDAXO\Dashboard;
 
 use rex_dashboard_item_chart_line;
 use rex_sql;
+use rex_sql_table;
 use rex_i18n;
 use rex;
 
@@ -17,45 +18,56 @@ class DashboardItemUserActivity extends rex_dashboard_item_chart_line
         return rex_i18n::msg('dashboard_user_activity_title', 'Benutzer-Aktivität (7 Tage)');
     }
 
+    public function isAvailable(): bool
+    {
+        // Nur für Admins verfügbar
+        $user = rex::getUser();
+        return $user && $user->isAdmin();
+    }
+
     public function getChartData()
     {
         $sql = rex_sql::factory();
         
         // Erstelle Datum-Array für die letzten 7 Tage
-        $chartData = [];
         $dates = [];
-        
         for ($i = 6; $i >= 0; $i--) {
             $date = date('Y-m-d', strtotime("-{$i} days"));
             $dateLabel = date('d.m.', strtotime("-{$i} days"));
             $dates[$date] = $dateLabel;
         }
         
-        // Artikel-Updates pro Tag
+        // Artikel-Updates pro Tag (echte Aktivität)
         $query = '
             SELECT 
                 DATE(FROM_UNIXTIME(updatedate)) as date,
-                COUNT(*) as updates
+                COUNT(*) as updates,
+                COUNT(DISTINCT updateuser) as active_users
             FROM ' . rex::getTable('article') . '
             WHERE updatedate >= ' . strtotime('-7 days') . '
+              AND updatedate > 0
+              AND updateuser != ""
             GROUP BY DATE(FROM_UNIXTIME(updatedate))
             ORDER BY date ASC
         ';
         
         $updateData = $sql->getArray($query);
-        $updates = [];
+        $articleUpdates = [];
+        $activeUsers = [];
         
         // Initialisiere alle Tage mit 0
         foreach ($dates as $date => $label) {
-            $updates[$label] = 0;
+            $articleUpdates[$label] = 0;
+            $activeUsers[$label] = 0;
         }
         
-        // Fülle tatsächliche Daten
+        // Fülle tatsächliche Update-Daten
         foreach ($updateData as $row) {
-            if ($row['date']) {  // Prüfe auf nicht-null Datum
+            if ($row['date']) {
                 $dateLabel = date('d.m.', strtotime($row['date']));
-                if (isset($updates[$dateLabel])) {
-                    $updates[$dateLabel] = (int)$row['updates'];
+                if (isset($articleUpdates[$dateLabel])) {
+                    $articleUpdates[$dateLabel] = (int)$row['updates'];
+                    $activeUsers[$dateLabel] = (int)$row['active_users'];
                 }
             }
         }
@@ -67,32 +79,74 @@ class DashboardItemUserActivity extends rex_dashboard_item_chart_line
                 COUNT(*) as creates
             FROM ' . rex::getTable('article') . '
             WHERE createdate >= ' . strtotime('-7 days') . '
+              AND createdate > 0
+              AND createuser != ""
             GROUP BY DATE(FROM_UNIXTIME(createdate))
             ORDER BY date ASC
         ';
         
         $createData = $sql->getArray($query);
-        $creates = [];
+        $articleCreates = [];
         
         // Initialisiere alle Tage mit 0
         foreach ($dates as $date => $label) {
-            $creates[$label] = 0;
+            $articleCreates[$label] = 0;
         }
         
-        // Fülle tatsächliche Daten
+        // Fülle tatsächliche Create-Daten
         foreach ($createData as $row) {
-            if ($row['date']) {  // Prüfe auf nicht-null Datum
+            if ($row['date']) {
                 $dateLabel = date('d.m.', strtotime($row['date']));
-                if (isset($creates[$dateLabel])) {
-                    $creates[$dateLabel] = (int)$row['creates'];
+                if (isset($articleCreates[$dateLabel])) {
+                    $articleCreates[$dateLabel] = (int)$row['creates'];
                 }
             }
         }
         
-        return [
-            rex_i18n::msg('dashboard_articles_edited', 'Artikel bearbeitet') => $updates,
-            rex_i18n::msg('dashboard_articles_created', 'Artikel erstellt') => $creates
+        // Backend-Logins (falls rex_user_log Tabelle existiert)
+        $loginData = [];
+        if (rex_sql_table::get(rex::getTable('user_log'))->exists()) {
+            $query = '
+                SELECT 
+                    DATE(FROM_UNIXTIME(timestamp)) as date,
+                    COUNT(*) as logins
+                FROM ' . rex::getTable('user_log') . '
+                WHERE timestamp >= ' . strtotime('-7 days') . '
+                  AND action = "login"
+                GROUP BY DATE(FROM_UNIXTIME(timestamp))
+                ORDER BY date ASC
+            ';
+            
+            $loginResult = $sql->getArray($query);
+            
+            // Initialisiere alle Tage mit 0
+            foreach ($dates as $date => $label) {
+                $loginData[$label] = 0;
+            }
+            
+            // Fülle Login-Daten
+            foreach ($loginResult as $row) {
+                if ($row['date']) {
+                    $dateLabel = date('d.m.', strtotime($row['date']));
+                    if (isset($loginData[$dateLabel])) {
+                        $loginData[$dateLabel] = (int)$row['logins'];
+                    }
+                }
+            }
+        }
+        
+        $chartData = [
+            rex_i18n::msg('dashboard_articles_edited', 'Artikel bearbeitet') => $articleUpdates,
+            rex_i18n::msg('dashboard_articles_created', 'Artikel erstellt') => $articleCreates,
+            rex_i18n::msg('dashboard_active_users', 'Aktive Benutzer') => $activeUsers
         ];
+        
+        // Backend-Logins hinzufügen falls verfügbar
+        if (!empty($loginData) && array_sum($loginData) > 0) {
+            $chartData[rex_i18n::msg('dashboard_backend_logins', 'Backend-Logins')] = $loginData;
+        }
+        
+        return $chartData;
     }
     
     protected function __construct($id, $name)
@@ -103,7 +157,7 @@ class DashboardItemUserActivity extends rex_dashboard_item_chart_line
             'plugins' => [
                 'tooltip' => [
                     'callbacks' => [
-                        'label' => 'function(context) { return context.dataset.label + ": " + context.parsed.y + " ' . rex_i18n::msg('dashboard_articles', 'Artikel') . '"; }'
+                        'label' => 'function(context) { return context.dataset.label + ": " + context.parsed.y; }'
                     ]
                 ]
             ],

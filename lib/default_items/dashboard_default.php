@@ -73,11 +73,27 @@ class DashboardDefault
             );
         }
         
-        // Uhr Widget
-        if ($addon->getConfig('default_clock', true)) {
+        // Clock Widget Defaults
+        if (null === $addon->getConfig('default_clock')) {
+            $addon->setConfig('default_clock', false);
+        }
+        if (null === $addon->getConfig('default_clock_columns')) {
+            $addon->setConfig('default_clock_columns', 1);
+        }
+        
+        // System-Log Widget Defaults
+        if (null === $addon->getConfig('default_system_log')) {
+            $addon->setConfig('default_system_log', false);
+        }
+        if (null === $addon->getConfig('default_system_log_columns')) {
+            $addon->setConfig('default_system_log_columns', 2);
+        }
+        
+        // System-Log (nur für Admins)
+        if ($addon->getConfig('default_system_log', true) && rex::getUser() && rex::getUser()->isAdmin()) {
             \rex_dashboard::addItem(
-                DashboardItemClock::factory('dashboard-default-clock', rex_i18n::msg('dashboard_clock_title', 'Uhr'))
-                    ->setColumns($addon->getConfig('default_clock_columns', 1))
+                DashboardItemSystemLog::factory('dashboard-default-system-log', rex_i18n::msg('dashboard_system_log_title', 'System-Log'))
+                    ->setColumns($addon->getConfig('default_system_log_columns', 2))
             );
         }
         
@@ -102,6 +118,14 @@ class DashboardDefault
             \rex_dashboard::addItem(
                 DashboardItemUserActivity::factory('dashboard-default-user-activity', rex_i18n::msg('dashboard_user_activity_title', 'Benutzer-Aktivität (Chart)'))
                     ->setColumns($addon->getConfig('default_user_activity_columns', 1))
+            );
+        }
+        
+        // Schnellnotizen (für alle Benutzer)
+        if ($addon->getConfig('default_quick_notes', true)) {
+            \rex_dashboard::addItem(
+                DashboardItemQuickNotes::factory('dashboard-default-quick-notes', rex_i18n::msg('dashboard_quick_notes_title', 'Schnellnotizen'))
+                    ->setColumns($addon->getConfig('default_quick_notes_columns', 1))
             );
         }
         
@@ -161,6 +185,8 @@ class DashboardDefault
             'default_addon_statistics_columns' => 1, // klein
             'default_user_activity' => true,
             'default_user_activity_columns' => 1,    // klein
+            'default_quick_notes' => true,
+            'default_quick_notes_columns' => 1,      // klein
             'default_rss_feed' => true,
             'default_rss_feed_columns' => 2,        // breit
             'default_countdown_demo' => true,

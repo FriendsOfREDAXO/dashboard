@@ -2,6 +2,7 @@
 
 use FriendsOfREDAXO\Dashboard\DashboardDemo;
 use FriendsOfREDAXO\Dashboard\DashboardDefault;
+use FriendsOfREDAXO\Dashboard\DashboardNotes;
 
 $addon = rex_addon::get('dashboard');
 
@@ -31,7 +32,11 @@ if (rex::isBackend()) {
         rex_view::addJsFile($addon->getAssetsUrl('js/table.min.js'));
         rex_view::addJsFile($addon->getAssetsUrl('js/table.locale.min.js'));
         
+        // GridStack and original Dashboard JS (contains GridStack)
         rex_view::addJsFile($addon->getAssetsUrl('js/script.js'));
+        
+        // Enhanced Dashboard JS with live refresh indicators
+        rex_view::addJsFile($addon->getAssetsUrl('js/dashboard-enhanced.js'));
         rex_view::addJsFile($addon->getAssetsUrl('js/chart.min.js'));
     }
 }

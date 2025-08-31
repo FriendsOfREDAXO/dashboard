@@ -53,8 +53,12 @@ $defaultWidgets = [
     'default_media_storage' => 'Medien-Speicherverbrauch (Chart)',
     'default_article_status' => 'Artikel-Status (Chart)',
     'default_system_status' => 'System-Status',
+    'default_backup_status' => 'Backup-Status (nur Admins)',
+    'default_clock' => 'Uhr Widget',
+    'default_system_log' => 'System-Log (nur Admins)',
     'default_user_activity' => 'Benutzer-Aktivität (Chart)',
     'default_addon_updates' => 'AddOn Verwaltung (nur Admins)',
+    'default_quick_notes' => 'Schnellnotizen',
 ];
 
 foreach ($defaultWidgets as $configKey => $label) {

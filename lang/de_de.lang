@@ -31,6 +31,7 @@ dashboard_article_status_title = Artikel-Status Übersicht
 dashboard_system_status_title = System-Status
 dashboard_backup_status_title = Backup-Status
 dashboard_clock_title = Uhr
+dashboard_system_log_title = System-Log
 dashboard_user_activity_title = Benutzer-Aktivität (7 Tage)
 dashboard_addon_updates_title = AddOn Updates & Übersicht
 dashboard_addon_statistics_title = AddOn Statistiken
@@ -67,6 +68,8 @@ dashboard_no_media_files = Keine Mediendateien gefunden
 dashboard_files = Dateien
 dashboard_mb = MB
 dashboard_articles = Artikel
+dashboard_active_users = Aktive Benutzer  
+dashboard_backend_logins = Backend-Logins
 
 # AddOn Statistics
 dashboard_active_addons = Aktive AddOns
@@ -75,3 +78,18 @@ dashboard_updates = Updates
 dashboard_total = Gesamt
 dashboard_admin_only = Nur für Administratoren verfügbar
 dashboard_inactive_addons_info = AddOn(s) installiert aber nicht aktiviert
+dashboard_system_log_view_all = Vollständiges Log anzeigen
+dashboard_refreshing_widget = Aktualisiere Widget
+dashboard_refresh_complete = Aktualisierung abgeschlossen
+
+# Quick Notes Widget
+dashboard_quick_notes_title = Schnellnotizen
+dashboard_quick_notes_placeholder = Hier können Sie Ihre persönlichen Notizen und Ideen festhalten...
+dashboard_quick_notes_save = Speichern
+dashboard_quick_notes_clear = Leeren
+dashboard_quick_notes_confirm_clear = Möchten Sie wirklich alle Notizen löschen?
+dashboard_quick_notes_saved = Notizen erfolgreich gespeichert!
+dashboard_quick_notes_error = Fehler beim Speichern der Notizen!
+dashboard_quick_notes_unsaved = Sie haben ungespeicherte Änderungen in Ihren Notizen.
+dashboard_saving = Speichern...
+dashboard_saved = Gespeichert
