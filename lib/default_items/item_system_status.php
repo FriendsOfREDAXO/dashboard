@@ -26,8 +26,8 @@ class DashboardItemSystemStatus extends rex_dashboard_item
         $redaxoVersion = rex::getVersion();
         $memoryLimit = ini_get('memory_limit');
         $maxExecutionTime = ini_get('max_execution_time');
-        $diskFreeSpace = $this->formatBytes(disk_free_space(rex_path::base()));
-        $diskTotalSpace = $this->formatBytes(disk_total_space(rex_path::base()));
+        $diskFreeSpace = $this->formatBytes(\disk_free_space(rex_path::base()));
+        $diskTotalSpace = $this->formatBytes(\disk_total_space(rex_path::base()));
         
         // Cache-Informationen
         $cacheDir = rex_path::cache();
