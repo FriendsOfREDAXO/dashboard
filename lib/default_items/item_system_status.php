@@ -26,8 +26,18 @@ class DashboardItemSystemStatus extends rex_dashboard_item
         $redaxoVersion = rex::getVersion();
         $memoryLimit = ini_get('memory_limit');
         $maxExecutionTime = ini_get('max_execution_time');
-        $diskFreeSpace = $this->formatBytes(\disk_free_space(rex_path::base()));
-        $diskTotalSpace = $this->formatBytes(\disk_total_space(rex_path::base()));
+        // Check if disk space functions are available (some hosting providers disable them)
+        if (function_exists('disk_free_space')) {
+            $diskFreeSpace = $this->formatBytes(\disk_free_space(rex_path::base()));
+        } else {
+            $diskFreeSpace = rex_i18n::msg('dashboard_function_disabled', 'Funktion deaktiviert');
+        }
+        
+        if (function_exists('disk_total_space')) {
+            $diskTotalSpace = $this->formatBytes(\disk_total_space(rex_path::base()));
+        } else {
+            $diskTotalSpace = rex_i18n::msg('dashboard_function_disabled', 'Funktion deaktiviert');
+        }
         
         // Cache-Informationen
         $cacheDir = rex_path::cache();

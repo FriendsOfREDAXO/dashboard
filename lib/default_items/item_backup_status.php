@@ -102,8 +102,8 @@ class DashboardItemBackupStatus extends rex_dashboard_item
                 if (is_file($file)) {
                     $backups[] = [
                         'filename' => basename($file),
-                        'size' => filesize($file),
-                        'created' => filemtime($file)
+                        'size' => function_exists('filesize') ? filesize($file) : 0,
+                        'created' => function_exists('filemtime') ? filemtime($file) : 0
                     ];
                 }
             }

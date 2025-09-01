@@ -205,8 +205,10 @@ abstract class rex_dashboard_item
     public function getCacheDate()
     {
         if (file_exists($cacheFile = rex_addon::get('dashboard')->getCachePath($this->getId() . '.data'))) {
-            $datetime = new DateTime();
-            return $datetime->setTimestamp(filemtime($cacheFile));
+            if (function_exists('filemtime')) {
+                $datetime = new DateTime();
+                return $datetime->setTimestamp(filemtime($cacheFile));
+            }
         }
 
         return new DateTime();
