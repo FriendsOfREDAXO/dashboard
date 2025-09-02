@@ -97,13 +97,7 @@ class DashboardDefault
             );
         }
         
-        // Benutzer-Aktivität (Chart) (nur für Admins)
-        if ($addon->getConfig('default_user_activity', true) && rex::getUser() && rex::getUser()->isAdmin()) {
-            \rex_dashboard::addItem(
-                DashboardItemUserActivity::factory('dashboard-default-user-activity', rex_i18n::msg('dashboard_user_activity_title', 'Benutzer-Aktivität (Chart)'))
-                    ->setColumns($addon->getConfig('default_user_activity_columns', 1))
-            );
-        }
+
         
         // RSS-Feed Widget (Clean Version ohne Bootstrap Table)
         \rex_dashboard::addItem(
@@ -159,8 +153,6 @@ class DashboardDefault
             'default_addon_updates_columns' => 2,   // breit
             'default_addon_statistics' => true,
             'default_addon_statistics_columns' => 1, // klein
-            'default_user_activity' => true,
-            'default_user_activity_columns' => 1,    // klein
             'default_rss_feed' => true,
             'default_rss_feed_columns' => 2,        // breit
             'default_countdown_demo' => true,
