@@ -1,7 +1,7 @@
 package: dashboard
 version: '2.1.3'
 author: 'Friends Of REDAXO'
-supportpage: https://github.com/FriendsOfREDAXO/dashboard
+supportpage: https://github.com/FriendsOfRedaxo/dashboard
 
 page:
     title: 'translate:title'

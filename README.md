@@ -248,7 +248,7 @@ MIT License - siehe LICENSE-Datei
 
 ## 📞 Support
 
-- **GitHub**: https://github.com/FriendsOfREDAXO/dashboard
+- **GitHub**: https://github.com/FriendsOfRedaxo/dashboard
 - **REDAXO Slack**: #addons Channel
 - **Forum**: https://redaxo.org/forum/
 

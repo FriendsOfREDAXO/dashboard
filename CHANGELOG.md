@@ -1,6 +1,22 @@
 Changelog
 =========
 
+Versipn 3.0 - xx.09.2025
+------------------------
+
+Major-Relase / Breaking Changes - Umstellung auf Namespace
+
+- Namespace:
+  - Durchgängige Nutzung des Namespace `FriendsOfRedaxo/Dashboard`
+  - In einigen Dateien waren bereits im Namespace `FriendsOfRedaxo`. Schreibweise korrigiert in `FriendsOfRedaxo`
+    und ggf. fehlende Sub-Namespaces gemäß Verzeichnisstruktur ergänzt.
+  - Klassennamen geändert: z.B. statt `rex_dashboard` einfach `Dashboard`, denn die Eindeutigkeit im Namen entsteht durcg den Namespace.
+  - Klassennamen vereinfacht: funktionale Prefixe wie `DashboardItem` sind durch die Namespace-Struktur überflüssig.
+  - API-Klassen in den Namespace aufgenommen; Registrierung unter dem bisherigen API-Namen via **boot.php**.
+  
+  WiP - to be continued
+   
+
 Version 2.0.0 – 29.08.2025
 --------------------------
 🎉 **Major Release - Modernisiertes Dashboard**

@@ -1,1 +1,1 @@
-<?=$this->getVar('widgetSelect') ?>
+<?= $this->getVar('widgetSelect');

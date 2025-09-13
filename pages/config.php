@@ -61,7 +61,7 @@ foreach ($defaultWidgets as $configKey => $label) {
     // Widget aktivieren/deaktivieren
     $field = $form->addCheckboxField($configKey);
     $field->addOption($label, '1');
-    
+
     // Größe (klein/breit) auswählen
     $sizeField = $form->addSelectField($configKey . '_columns', null, ['class' => 'form-control widget-size-select', 'data-widget' => $configKey]);
     $sizeField->setLabel('Größe (' . $label . ')');
@@ -149,5 +149,3 @@ $fragment->setVar('class', 'edit', false);
 $fragment->setVar('title', 'Dashboard Konfiguration', false);
 $fragment->setVar('body', $form->get(), false);
 echo $fragment->parse('core/page/section.php');
-
-?>
