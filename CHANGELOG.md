@@ -13,6 +13,7 @@ Major-Relase / Breaking Changes - Umstellung auf Namespace
   - Klassennamen geändert: z.B. statt `rex_dashboard` einfach `Dashboard`, denn die Eindeutigkeit im Namen entsteht durcg den Namespace.
   - Klassennamen vereinfacht: funktionale Prefixe wie `DashboardItem` sind durch die Namespace-Struktur überflüssig.
   - API-Klassen in den Namespace aufgenommen; Registrierung unter dem bisherigen API-Namen via **boot.php**.
+  - Für eine Übergangszeit sind die alten Klassen weiterhin verfügbar; sie verweisen per Extend lediglich auf die neuen Klassen.
   
   WiP - to be continued
    
