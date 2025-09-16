@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Versipn 3.0 - xx.09.2025
+Versipn 2.2.0 - xx.09.2025
 ------------------------
 
 Major-Relase / Breaking Changes - Umstellung auf Namespace

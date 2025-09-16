@@ -2,5 +2,5 @@
 
 namespace FriendsOfREDAXO\Dashboard;
 
-/** @deprecated 3.0.0 Use FriendsOfREDAXO\Dashboard\Items\RecentArticles  */
+/** @deprecated 3.0.0 Use FriendsOfRedaxo\Dashboard\Items\RecentArticles  */
 class DashboardItemRecentArticles extends Items\RecentArticles {}

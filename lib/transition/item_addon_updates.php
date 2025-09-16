@@ -2,5 +2,5 @@
 
 namespace FriendsOfREDAXO\Dashboard;
 
-/** @deprecated 3.0.0 Use FriendsOfREDAXO\Dashboard\Items\AddonUpdates  */
+/** @deprecated 3.0.0 Use FriendsOfRedaxo\Dashboard\Items\AddonUpdates  */
 class DashboardItemAddonUpdates extends Items\AddonUpdates {}

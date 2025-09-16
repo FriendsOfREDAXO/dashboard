@@ -72,10 +72,18 @@ Das RSS-Widget zeigt 2 Items pro Seite mit Paginierung an.
 
 ## 🔧 Entwickler-API
 
+Für zukunftssichere Jedes Widget als eigene Datei im Lib-Verzeichnis eines Addons ablegen und dabei die NAmesapce-Empfehlungen einhalten
+
 ### Eigene Widgets erstellen
 
+Widgets basieren auf einem vorhandenen Widget oder auf einem der Basis-Elemente. 
+
 ```php
-class MeinCustomWidget extends rex_dashboard_item
+namespace MyWorkspace\MyAddon\Dashbaord;
+
+use FriendsOfRedaxo\Dashboard\Base\Item;
+
+class MeinCustomWidget extends Item
 {
     public function getTitle(): string
     {
@@ -92,9 +100,12 @@ class MeinCustomWidget extends rex_dashboard_item
 ### Widget registrieren
 
 ```php
+use FriendsOfRedaxo\Dashboard\Dashboard;
+use MyWorkspace\MyAddon\Dashbaord\MeinCustomWidget;
+
 // In der boot.php des eigenen AddOns
 if (rex::isBackend() && rex_addon::exists('dashboard')) {
-    rex_dashboard::addItem(
+    Dashboard::addItem(
         MeinCustomWidget::factory('mein-widget-id', 'Mein Widget')
             ->setColumns(2) // 1 oder 2 Spalten
     );
@@ -103,18 +114,24 @@ if (rex::isBackend() && rex_addon::exists('dashboard')) {
 
 ### Verfügbare Basis-Klassen
 
-- `rex_dashboard_item` - Basis-Widget
-- `rex_dashboard_item_chart_bar` - Balkendiagramm
-- `rex_dashboard_item_chart_line` - Liniendiagramm  
-- `rex_dashboard_item_chart_pie` - Kreisdiagramm
-- `rex_dashboard_item_table` - Tabellen-Widget
+Die Basisklassen sind im Namespace `FriendsOfRedaxo\Dashboard\Base`allokiert.
+
+- `Item` - Basis-Widget
+- `ChartBar` - Balkendiagramm
+- `ChartLine` - Liniendiagramm  
+- `ChartPie` - Kreisdiagramm
+- `Table` - Tabellen-Widget
 
 ## 📊 Widget-Typen im Detail
 
 ### Chart-Widgets
 
 ```php
-class MeinChartWidget extends rex_dashboard_item_chart_bar
+namespace MyWorkspace\MyAddon\Dashbaord;
+
+use FriendsOfRedaxo\Dashboard\Base\ChartBar;
+
+class MeinChartWidget extends ChartBar
 {
     public function getChartData()
     {
@@ -130,7 +147,11 @@ class MeinChartWidget extends rex_dashboard_item_chart_bar
 ### Tabellen-Widgets
 
 ```php
-class MeinTabellenWidget extends rex_dashboard_item_table
+namespace MyWorkspace\MyAddon\Dashbaord;
+
+use FriendsOfRedaxo\Dashboard\Base\Table;
+
+class MeinTabellenWidget extends Table
 {
     public function getTableData()
     {
@@ -162,9 +183,11 @@ if ($structurePerm->hasCategoryPerm($categoryId)) {
 ### Admin-Only Widgets
 
 ```php
+use FriendsOfRedaxo\Dashboard\Dashboard;
+
 if (rex::getUser() && rex::getUser()->isAdmin()) {
     // Widget nur für Admins registrieren
-    rex_dashboard::addItem(AdminWidget::factory('admin-widget', 'Admin Widget'));
+    Dashboard::addItem(AdminWidget::factory('admin-widget', 'Admin Widget'));
 }
 ```
 
@@ -256,23 +279,33 @@ MIT License - siehe LICENSE-Datei
 
 **Dashboard AddOn 2.0** - Modernes Dashboard für REDAXO 5.x mit Standard-Widgets, Sicherheitsfeatures und verbessertem UX.
 
-### rex_dashboard_item
+### Ein einfaches Info-Item (Text anzeigen)
+
+siehe DemoItems\Info
 
 ```php
-class rex_dashboard_item_demo extends rex_dashboard_item
+namespace FriendsOfRedaxo\Dashboard\DemoItems;
+
+use FriendsOfRedaxo\Dashboard\Base\Item;
+
+class Info extends Item
 {
     public function getData()
     {
         return 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
     }
 }
+
 ```
 
-### rex_dashboard_item_chart_bar
+### Ein Dashbord-Element: Balkendiagramm 
 
 ```php
+namespace MyWorkspace\MyAddon\Dashbaord;
 
-class rex_dashboard_item_my_chart_bar_horizontal extends rex_dashboard_item_chart_bar
+use FriendsOfRedaxo\Dashboard\Base\ChartBar;
+
+class MeinBalkenDiagramm extends ChartBar
 {
     protected function __construct($id, $name)
     {
@@ -295,11 +328,14 @@ class rex_dashboard_item_my_chart_bar_horizontal extends rex_dashboard_item_char
 
 ```
 
-### rex_dashboard_item_chart_line
+### Ein Dashbord-Element: Liniendiagramm 
 
 ```php
+namespace MyWorkspace\MyAddon\Dashbaord;
 
-class rex_dashboard_item_chart_line_demo extends rex_dashboard_item_chart_line
+use FriendsOfRedaxo\Dashboard\Base\ChartLine;
+
+class MeinLinienDiagramm extends ChartLine
 {
     public function getChartData()
     {
@@ -334,11 +370,16 @@ class rex_dashboard_item_chart_line_demo extends rex_dashboard_item_chart_line
 
 ```
 
-### rex_dashboard_item_chart_pie
+### Ein Dashboard-Element: Tortendiagramm
 
 ```php
+namespace MyWorkspace\MyAddon\Dashbaord;
 
-class rex_dashboard_item_chart_pie_demo extends rex_dashboard_item_chart_pie
+use FriendsOfRedaxo\Dashboard\Base\ChartPie;
+
+class MeinLinienDiagramm extends ChartPie
+
+class MeinTortenDiagramm extends ChartPie
 {
     public function getChartData()
     {
@@ -354,11 +395,14 @@ class rex_dashboard_item_chart_pie_demo extends rex_dashboard_item_chart_pie
 }
 
 ```
-### rex_dashboard_item_table
+### Ein Dashboard-Element: Datentabelle
 
 ```php
+namespace MyWorkspace\MyAddon\Dashbaord;
 
-class rex_dashboard_item_table_demo extends rex_dashboard_item_table
+use FriendsOfRedaxo\Dashboard\Base\Table;
+
+class MeineDatenTabelle extends Table
 {
     protected $header = [];
     protected $data = [];
@@ -394,47 +438,59 @@ In der boot.php des eigenen Project-AddOns oder in der jeweiligen boot.php des e
 Hier ein Beispiel für die Anmeldung der Widgets aus dem DemoPlugin, siehe oben:
 
 ```php
+use FriendsOfRedaxo\Dashboard\Dashboard;
+use use FriendsOfRedaxo\Dashboard\DemoItems\Info;
+use use FriendsOfRedaxo\Dashboard\DemoItems\ChartBarHorizontal;
+use use FriendsOfRedaxo\Dashboard\DemoItems\ChartBarVertical;
+use use FriendsOfRedaxo\Dashboard\DemoItems\ChartPie;
+use use FriendsOfRedaxo\Dashboard\DemoItems\ChartLine;
+use use FriendsOfRedaxo\Dashboard\DemoItems\BigNumber;
 
 if (rex::isBackend() && rex_addon::exists('dashboard')) {
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_demo::factory('dashboard-demo-1', 'Demo 1')
+    Dashboard::addItem(
+        Info::factory('dashboard-demo-1', 'Demo 1'),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_demo::factory('dashboard-demo-2', 'Demo 2')
-            ->setColumns(2)
+    Dashboard::addItem(
+        Info::factory('dashboard-demo-2', 'Demo 2')
+            ->setColumns(2),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_demo::factory('dashboard-demo-3', 'Demo 3')
-            ->setColumns(3)
+    Dashboard::addItem(
+        Info::factory('dashboard-demo-3', 'Demo 3')
+            ->setColumns(3),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_chart_bar_horizontal::factory('dashboard-demo-chart-bar-horizontal', 'Chartdemo Balken horizontal')
+    Dashboard::addItem(
+        ChartBarHorizontal::factory('dashboard-demo-chart-bar-horizontal', 'Chartdemo Balken horizontal'),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_chart_bar_vertical::factory('dashboard-demo-chart-bar-vertical', 'Chartdemo Balken vertikal')
+    Dashboard::addItem(
+        ChartBarVertical::factory('dashboard-demo-chart-bar-vertical', 'Chartdemo Balken vertikal'),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_chart_pie_demo::factory('dashboard-demo-chart-pie', 'Chartdemo Kreisdiagramm')
+    Dashboard::addItem(
+        ChartPie::factory('dashboard-demo-chart-pie', 'Chartdemo Kreisdiagramm'),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_chart_pie_demo::factory('dashboard-demo-chart-donut', 'Chartdemo Donutdiagramm')
-            ->setDonut()
+    Dashboard::addItem(
+        ChartPie::factory('dashboard-demo-chart-donut', 'Chartdemo Donutdiagramm')
+            ->setDonut(),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_table_demo::factory('dashboard-demo-table-sql', 'Tabelle (SQL)')
-            ->setTableAttribute('data-locale', 'de-DE')
+    Dashboard::addItem(
+        Table::factory('dashboard-demo-table-sql', 'Tabelle (SQL)')
+            ->setTableAttribute('data-locale', 'de-DE'),
     );
 
-    rex_dashboard::addItem(
-        rex_dashboard_item_chart_line_demo::factory('dashboard-demo-chart-line', 'Liniendiagramm')
+    Dashboard::addItem(
+        ChartLine::factory('dashboard-demo-chart-line', 'Liniendiagramm'),
+    );
+
+    Dashboard::addItem(
+        BigNumber::factory('dashboard-demo-big-number', 'Big Number Demo')
+            ->setColumns(1), // Als kleines Widget
     );
 
 );
@@ -444,3 +500,53 @@ if (rex::isBackend() && rex_addon::exists('dashboard')) {
 ## Auswählen des Widgets im Dashboard
 
 Sobald die Widgets angemeldet sind, können sie im Dashboard ausgewählt und angeordnet werden. Dazu klickt man im Widget auf `Widget auswählen`.
+
+
+## Umstellung auf Namespace
+
+Bis Version 2.1.3 waren wenige Klassen bereits in einen Namespace (`FriendsOfREDAXO/Dashboard`) angeordnet. Mit der Folgeversion 2.2
+sind alle Klassen einheitlich im Namespace `FriendsOfRedaxo/Dashboard` (andere Schreibweise) bzw. in Sub-Namespaces dazu eingeordnet.
+I.d.R. wurden die Klassen dabei auch umbenannt, denn Teile des Namens sind nun Teil des Namespace.
+
+Die bisherigen Klassen (z.B. `rex_dashboard`) existieren für eine Übergangszeit bis zur Version 3.0 weiter. Das Update auf Version 2.4 sollte daher keine Funktionseinschränkungen bezüglich eigener Elemente mit sich bringen. 
+
+**Die Umstellung im eigenen Code auf die neuen Klassennamen und Namespaces sollte dennoch zeitnah erfolgen!**
+
+Hinweise zur allgemeinen Vorgehensweise sind z.B. auf [Github (FriendsOfRedaxo/Discussions)](https://github.com/orgs/FriendsOfREDAXO/discussions/40) zu finden.
+
+Die Tabelle stellt alte und neue Klassen gegenüber, jeweils mit Namespace:
+
+| Alt | Neu |
+|-----|-----|
+| rex_dashboard                                                 | FriendsOfRedaxo\Dashboard\Dashbord |
+| rex_dashboard_item                                            | FriendsOfRedaxo\Dashboard\Base\Item |
+| rex_dashboard_item_chart                                      | FriendsOfRedaxo\Dashboard\Base\Chart |
+| rex_dashboard_item_chart_bar                                  | FriendsOfRedaxo\Dashboard\Base\ChartBar |
+| rex_dashboard_item_chart_line                                 | FriendsOfRedaxo\Dashboard\Base\ChartLine |
+| rex_dashboard_item_chart_pie                                  | FriendsOfRedaxo\Dashboard\Base\ChartPie |
+| rex_dashboard_item_table                                      | FriendsOfRedaxo\Dashboard\Base\Table |
+| rex_dashboard_chart_colors                                    | FriendsOfRedaxo\Dashboard\Traits\ChartColors |
+| FriendsOfREDAXO\Dashboard\DashboardDemo                       | FriendsOfRedaxo\Dashboard\DemoItems\DashboardDemo
+| FriendsOfREDAXO\Dashboard\rex_dashboard_item                  | FriendsOfRedaxo\Dashboard\DemoItems\Info |
+| FriendsOfREDAXO\Dashboard\DashboardItemDemoBigNumber          | FriendsOfRedaxo\Dashboard\DemoItems\BigNumber |
+| FriendsOfREDAXO\Dashboard\DashboardItemDemoChartBarHorizontal | FriendsOfRedaxo\Dashboard\DemoItems\ChartBarHorizontal |
+| FriendsOfREDAXO\Dashboard\DashboardItemDemoChartBarVertical   | FriendsOfRedaxo\Dashboard\DemoItems\ChartBarVertical |
+| FriendsOfREDAXO\Dashboard\DashboardItemDemoChartLine          | FriendsOfRedaxo\Dashboard\DemoItems\ChartLine |
+| FriendsOfREDAXO\Dashboard\DashboardItemDemoChartPie           | FriendsOfRedaxo\Dashboard\DemoItems\ChartPie |
+| FriendsOfREDAXO\Dashboard\DashboardItemDemoTable              | FriendsOfRedaxo\Dashboard\DemoItems\Table |
+| FriendsOfREDAXO\Dashboard\DashboardDefault                    | FriendsOfRedaxo\Dashboard\DashboardDefault |
+| FriendsOfREDAXO\Dashboard\DashboardItemAddonStatistics        | FriendsOfRedaxo\Dashboard\Items\AddonStatistics |
+| FriendsOfREDAXO\Dashboard\DashboardItemAddonUpdates           | FriendsOfRedaxo\Dashboard\Items\AddonUpdates |
+| FriendsOfREDAXO\Dashboard\DashboardItemArticleStatus          | FriendsOfRedaxo\Dashboard\Items\ArticleStatus |
+| FriendsOfREDAXO\Dashboard\DashboardItemBackupStatus           | FriendsOfRedaxo\Dashboard\Items\BackupStatus |
+| FriendsOfREDAXO\Dashboard\DashboardItemBigNumberDemo          | FriendsOfRedaxo\Dashboard\Items\BigNumberDemo |
+| FriendsOfREDAXO\Dashboard\DashboardItemClock                  | FriendsOfRedaxo\Dashboard\Items\Clock |
+| FriendsOfREDAXO\Dashboard\DashboardItemCountdownDemo          | FriendsOfRedaxo\Dashboard\Items\CountdownDemo |
+| FriendsOfREDAXO\Dashboard\DashboardItemMediaStorage           | FriendsOfRedaxo\Dashboard\Items\MediaStorage |
+| FriendsOfREDAXO\Dashboard\DashboardItemNewArticles            | FriendsOfRedaxo\Dashboard\Items\NewArticles |
+| FriendsOfREDAXO\Dashboard\DashboardItemRecentArticles         | FriendsOfRedaxo\Dashboard\Items\RecentArticles |
+| FriendsOfREDAXO\Dashboard\DashboardItemRssClean               | FriendsOfRedaxo\Dashboard\Items\RssClean |
+| FriendsOfREDAXO\Dashboard\DashboardItemSystemStatus           | FriendsOfRedaxo\Dashboard\Items\SystemStatus |
+| FriendsOfREDAXO\Dashboard\DashboardItemUserActivity           | FriendsOfRedaxo\Dashboard\Items\UserActivity |
+| rex_api_dashboard_get                                         | FriendsOfRedaxo\Dashboard\Api\Get |
+| rex_api_dashboard_store                                       | FriendsOfRedaxo\Dashboard\Api\Store |

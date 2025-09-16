@@ -2,5 +2,5 @@
 
 namespace FriendsOfREDAXO\Dashboard;
 
-/** @deprecated 3.0.0 Use FriendsOfREDAXO\Dashboard\DemoItems\ChartBarVertical  */
+/** @deprecated 3.0.0 Use FriendsOfRedaxo\Dashboard\DemoItems\ChartBarVertical  */
 class DashboardItemDemoChartBarVertical extends DemoItems\ChartBarVertical {}
