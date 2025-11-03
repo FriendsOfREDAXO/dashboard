@@ -1,4 +1,4 @@
-# Instructions: https://github.com/FriendsOfREDAXO/installer-action/
+# Instructions: https://github.com/FriendsOfRedaxo/installer-action/
 
 name: Publish to REDAXO.org
 on:
@@ -19,7 +19,7 @@ jobs:
         uses: ramsey/composer-install@v2
         with:
           composer-options: "--no-dev"
-      - uses: FriendsOfREDAXO/installer-action@v1
+      - uses: FriendsOfRedaxo/installer-action@v1
         with:
           myredaxo-username: ${{ secrets.MYREDAXO_USERNAME }}
           myredaxo-api-key: ${{ secrets.MYREDAXO_API_KEY }}

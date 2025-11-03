@@ -1,31 +1,35 @@
 <?php
 
-/**
- * @package yakamara\dashboard
- */
-class rex_dashboard
+namespace FriendsOfRedaxo\Dashboard;
+
+use FriendsOfRedaxo\Dashboard\Base\Item;
+use rex;
+use rex_fragment;
+use rex_i18n;
+use rex_select;
+use rex_url;
+use rex_view;
+
+class Dashboard
 {
-    private static $instance = null; // ab php 7.4 ?self
+    private static $instance; // ab php 7.4 ?self
 
-    /** @var rex_dashboard_item[] $items */
-    static $items = [];
+    /** @var array<ItemBase> */
+    public static $items = [];
 
-    private function __construct()
-    {
-
-    }
+    private function __construct() {}
 
     public static function init()
     {
-        if (is_null(static::$instance)) {
+        if (null === static::$instance) {
             static::$instance = new self();
         }
 
-        foreach (rex_dashboard_item::getCssFiles() as $filename) {
+        foreach (Item::getCssFiles() as $filename) {
             rex_view::addCssFile($filename);
         }
 
-        foreach (rex_dashboard_item::getJsFiles() as $filename) {
+        foreach (Item::getJsFiles() as $filename) {
             rex_view::addJsFile($filename);
         }
     }
@@ -36,8 +40,7 @@ class rex_dashboard
         foreach (static::$items as $item) {
             if ($item->isActive()) {
                 $outputActive .= (new rex_fragment(['item' => $item]))->parse('item.php');
-            }
-            else {
+            } else {
                 $outputInactive .= (new rex_fragment(['item' => $item]))->parse('item.php');
             }
         }
@@ -76,12 +79,12 @@ class rex_dashboard
         ]))->parse('dashboard.php');
     }
 
-    public static function addItem(rex_dashboard_item $item)
+    public static function addItem(Item $item)
     {
         static::$items[$item->getId()] = $item;
     }
 
-    public static function getItem($id) : ?rex_dashboard_item
+    public static function getItem($id): ?Item
     {
         return static::$items[$id] ?? null;
     }
