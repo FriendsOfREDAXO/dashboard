@@ -1,15 +1,14 @@
 <?php
 
-namespace FriendsOfREDAXO\Dashboard;
+namespace FriendsOfRedaxo\Dashboard\Items;
 
-use rex_dashboard_item;
+use FriendsOfRedaxo\Dashboard\Base\Item;
 use rex_i18n;
-use rex;
 
 /**
  * Dashboard Item: Uhr
  */
-class DashboardItemClock extends rex_dashboard_item
+class Clock extends Item
 {
     public function getTitle(): string
     {
