@@ -4,6 +4,7 @@ namespace FriendsOfRedaxo\Dashboard\Base;
 
 use FriendsOfRedaxo\Dashboard\Traits\ChartColors;
 use rex_addon;
+use rex_response;
 
 use function array_key_exists;
 use function is_array;
@@ -84,7 +85,7 @@ abstract class Chart extends Item
         }
 
         return '<canvas id="dashboard-chart-' . $this->getId() . '"></canvas>
-                    <script>
+                    <script nonce="' . rex_response::getNonce() . '">
                     new Chart(document.getElementById("dashboard-chart-' . $this->getId() . '"), {
                         type: "' . $this->chartType . '",
                         data: ' . json_encode([

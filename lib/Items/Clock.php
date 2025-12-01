@@ -4,6 +4,7 @@ namespace FriendsOfRedaxo\Dashboard\Items;
 
 use FriendsOfRedaxo\Dashboard\Base\Item;
 use rex_i18n;
+use rex_response;
 
 /**
  * Dashboard Item: Uhr
@@ -276,7 +277,7 @@ class Clock extends Item
         </style>';
         
         // JavaScript für die Apple Watch Style Uhr
-        $content .= '<script>
+        $content .= '<script nonce="' . rex_response::getNonce() . '">
             function updateAppleWatchClock() {
                 const now = new Date();
                 

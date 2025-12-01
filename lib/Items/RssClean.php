@@ -6,6 +6,7 @@ use Exception;
 use FriendsOfRedaxo\Dashboard\Base\Item;
 use rex_config;
 use rex_i18n;
+use rex_response;
 
 use function array_slice;
 use function count;
@@ -163,7 +164,7 @@ class RssClean extends Item
 
         // JavaScript für Paginierung
         $output .= '
-        <script>
+        <script nonce="' . rex_response::getNonce() . '">
         (function() {
             let rssCurrentPage = 1;
             let rssTotalPages = ' . $totalPages . ';
@@ -254,7 +255,7 @@ class RssClean extends Item
     private function loadRssFeed($url)
     {
         try {
-            // Timeout und User-Agent setzen, SSL-Verifizierung deaktivieren für lokale Tests
+            // Timeout und User-Agent setzen
             $context = stream_context_create([
                 'http' => [
                     'timeout' => 15,
@@ -262,11 +263,14 @@ class RssClean extends Item
                     'method' => 'GET',
                     'header' => "Accept: application/rss+xml, application/xml, text/xml\r\n",
                 ],
+                // SSL-Verifizierung aktiviert lassen für Sicherheit
+                /*
                 'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
                     'allow_self_signed' => true,
                 ],
+                */
             ]);
 
             // RSS-Feed laden

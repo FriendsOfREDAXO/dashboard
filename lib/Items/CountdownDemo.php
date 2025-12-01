@@ -4,6 +4,7 @@ namespace FriendsOfRedaxo\Dashboard\Items;
 
 use FriendsOfRedaxo\Dashboard\Base\Item;
 use rex_i18n;
+use rex_response;
 
 /**
  * Demo Dashboard Item: Countdown zum nächsten Jahr.
@@ -79,7 +80,7 @@ class CountdownDemo extends Item
         $output .= '</div>'; // countdown-demo-compact
 
         // JavaScript für Countdown (kompakt)
-        $output .= '<script>
+        $output .= '<script nonce="' . rex_response::getNonce() . '">
         (function() {
             const targetDate = ' . ($targetDate * 1000) . '; // JavaScript verwendet Millisekunden
             

@@ -37,6 +37,7 @@ dashboard_addon_statistics_title = AddOn Statistics
 dashboard_rss_feed_title = RSS Feed
 dashboard_countdown_demo_title = New Year Countdown
 dashboard_big_number_demo_title = Follower Count
+dashboard_todo_title = ToDo List
 
 # Table Headers
 dashboard_article = Article
@@ -75,3 +76,14 @@ dashboard_updates = Updates
 dashboard_total = Total
 dashboard_admin_only = Available for administrators only
 dashboard_inactive_addons_info = AddOn(s) installed but not activated
+
+# Todo Widget
+dashboard_todo_total = Total
+dashboard_todo_completed = Completed
+dashboard_todo_pending = Pending
+dashboard_todo_new = New Task
+dashboard_todo_placeholder = Enter task...
+dashboard_todo_empty = No tasks available
+dashboard_todo_confirm_delete = Really delete?
+dashboard_add = Add
+dashboard_cancel = Cancel

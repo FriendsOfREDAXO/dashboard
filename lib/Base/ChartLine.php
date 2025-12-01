@@ -4,6 +4,7 @@ namespace FriendsOfRedaxo\Dashboard\Base;
 
 use function array_key_exists;
 use function is_array;
+use rex_response;
 
 abstract class ChartLine extends Chart
 {
@@ -48,7 +49,7 @@ abstract class ChartLine extends Chart
         }
 
         return '<canvas id="dashboard-chart-' . $this->getId() . '"></canvas>
-                    <script>
+                    <script nonce="' . rex_response::getNonce() . '">
                     new Chart(document.getElementById("dashboard-chart-' . $this->getId() . '"), {
                         type: "' . $this->chartType . '",
                         data: ' . json_encode([
