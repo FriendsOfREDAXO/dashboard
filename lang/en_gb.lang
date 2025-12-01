@@ -51,7 +51,7 @@ dashboard_no_new_articles = No new articles in the last 30 days
 dashboard_no_permission = Access denied
 dashboard_no_article_permission = No article permissions
 
-# Chart Data and Labels
+# Chart Data and Label
 dashboard_online = Online
 dashboard_offline = Offline
 dashboard_articles_edited = Articles edited
@@ -76,14 +76,3 @@ dashboard_updates = Updates
 dashboard_total = Total
 dashboard_admin_only = Available for administrators only
 dashboard_inactive_addons_info = AddOn(s) installed but not activated
-
-# Todo Widget
-dashboard_todo_total = Total
-dashboard_todo_completed = Completed
-dashboard_todo_pending = Pending
-dashboard_todo_new = New Task
-dashboard_todo_placeholder = Enter task...
-dashboard_todo_empty = No tasks available
-dashboard_todo_confirm_delete = Really delete?
-dashboard_add = Add
-dashboard_cancel = Cancel
