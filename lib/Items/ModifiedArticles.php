@@ -21,6 +21,41 @@ class ModifiedArticles extends Item
         return rex_i18n::msg('dashboard_modified_articles_title', 'Geänderte Artikel (Arbeitsversion)');
     }
 
+    private function getTimeAgo($timestamp)
+    {
+        $time = time() - $timestamp;
+
+        if ($time < 60) {
+            return rex_i18n::msg('dashboard_just_now');
+        }
+
+        $tokens = [
+            31536000 => 'dashboard_days_ago', // Simplified to days for > year
+            2592000 => 'dashboard_days_ago',  // Simplified to days for > month
+            604800 => 'dashboard_days_ago',   // Simplified to days for > week
+            86400 => 'dashboard_days_ago',
+            3600 => 'dashboard_hours_ago',
+            60 => 'dashboard_minutes_ago',
+        ];
+
+        foreach ($tokens as $unit => $textKey) {
+            if ($time < $unit) {
+                continue;
+            }
+            
+            // For years/months we still just show days to be consistent
+            if ($unit >= 86400) {
+                 $numberOfDays = (int) floor($time / 86400);
+                 return sprintf(rex_i18n::msg('dashboard_days_ago'), $numberOfDays);
+            }
+            
+            $numberOfUnits = (int) floor($time / $unit);
+            return sprintf(rex_i18n::msg($textKey), $numberOfUnits);
+        }
+        
+        return '';
+    }
+
     public function getData()
     {
         $user = rex::getUser();
@@ -106,8 +141,8 @@ class ModifiedArticles extends Item
             $content .= '<th>' . rex_i18n::msg('dashboard_language', 'Sprache') . '</th>';
         }
 
-        $content .= '<th>' . rex_i18n::msg('dashboard_updated', 'Geändert am') . '</th>';
-        $content .= '<th>' . rex_i18n::msg('dashboard_by', 'Bearbeiter') . '</th>';
+        $content .= '<th>' . rex_i18n::msg('dashboard_modified_articles_date', 'Geändert am') . '</th>';
+        $content .= '<th>' . rex_i18n::msg('dashboard_modified_articles_user', 'Bearbeiter') . '</th>';
         $content .= '</tr>';
         $content .= '</thead>';
         $content .= '<tbody>';
@@ -124,7 +159,20 @@ class ModifiedArticles extends Item
 
             $articleName = rex_escape($row->getValue('name'));
             $catName = rex_escape($row->getValue('catname'));
-            $updateDate = date('d.m.Y H:i', strtotime($row->getValue('max_work_date')));
+            
+            $timestamp = strtotime($row->getValue('max_work_date'));
+            $updateDate = date('d.m.Y H:i', $timestamp);
+            $timeAgo = $this->getTimeAgo($timestamp);
+            $ageDays = floor((time() - $timestamp) / 86400);
+            
+            // Mark very old versions (older than 90 days)
+            $style = '';
+            $icon = '';
+            if ($ageDays > 90) {
+                 $style = 'color: #a94442;'; // danger color
+                 $icon = ' <i class="fa fa-exclamation-triangle" title="'.rex_i18n::msg('dashboard_old_version').'"></i>';
+            }
+            
             $userName = rex_escape($row->getValue('username') ?: $row->getValue('updateuser'));
 
             $editUrl = rex_url::backendPage('content/edit', [
@@ -143,7 +191,7 @@ class ModifiedArticles extends Item
                 $content .= '<td>' . rex_escape($langName) . '</td>';
             }
 
-            $content .= '<td>' . $updateDate . '</td>';
+            $content .= '<td><span style="'.$style.'">' . $updateDate . $icon . '</span><br><small class="text-muted">' . $timeAgo . '</small></td>';
             $content .= '<td>' . $userName . '</td>';
             $content .= '</tr>';
         }

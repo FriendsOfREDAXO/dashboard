@@ -49,7 +49,7 @@ class DashboardDefault
         if ($addon->getConfig('default_modified_articles', true)) {
             Dashboard::addItem(
                 ModifiedArticles::factory('dashboard-default-modified-articles', rex_i18n::msg('dashboard_modified_articles_title', 'Geänderte Artikel (Arbeitsversion)'))
-                    ->setColumns($addon->getConfig('default_modified_articles_columns', 3)),
+                    ->setColumns($addon->getConfig('default_modified_articles_columns', 2)),
             );
         }
 
