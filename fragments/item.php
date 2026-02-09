@@ -18,7 +18,7 @@ $content = $item->getContent();
         <div class="panel panel-info">
             <?php if ($item->getOption('show-header')): ?>
                 <header class="panel-heading">
-                    <div class="panel-title"><?= rex_escape($item->getName()) ?></div>
+                    <div class="panel-title"><?= rex_escape(htmlspecialchars_decode($item->getName())) ?></div>
                     <div class="actions">
                         <?php if ($item->isCached()): ?>
                             <div class="grid-stack-item-refresh" title="<?= rex_i18n::msg('dashboard_action_refresh_title') . ' ' . $item->getCacheDate()->format(rex_i18n::msg('dashboard_action_refresh_title_dateformat')) ?>"><i class="glyphicon glyphicon-refresh"></i></div>

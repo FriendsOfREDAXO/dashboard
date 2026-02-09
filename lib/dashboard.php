@@ -57,7 +57,7 @@ class Dashboard
         $select->setAttribute('data-dropdown-align-right', 'auto');
 
         foreach (static::$items as $item) {
-            $select->addOption($item->getName(), $item->getId());
+            $select->addOption(htmlspecialchars_decode($item->getName()), $item->getId());
 
             if ($item->isActive()) {
                 $select->setSelected($item->getId());
