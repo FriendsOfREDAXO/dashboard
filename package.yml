@@ -1,5 +1,9 @@
 package: dashboard
+<<<<<<< HEAD
 version: '2.3.0'
+=======
+version: '2.2.3'
+>>>>>>> 86592c5b1f29c92cb8aca768683a21602cd67239
 author: 'Friends Of REDAXO'
 supportpage: https://github.com/FriendsOfRedaxo/dashboard
 
