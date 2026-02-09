@@ -1,7 +1,13 @@
 Changelog
 =========
 
-Versipn 2.2.0 - xx.09.2025
+Version 2.3.0 - 09.02.2026
+------------------------
+- Neu: Widget "Geänderte Artikel (Arbeitsversion)" (benötigt structure/version Plugin)
+- Neu: 3-Spalten Layout (Vollbreite) für Widgets konfigurierbar
+- Fix: HTML-Escaping Fehler in Widget-Titeln und im Dropdown behoben
+
+Version 2.2.0 - xx.09.2025
 ------------------------
 
 Major-Relase / Breaking Changes - Umstellung auf Namespace

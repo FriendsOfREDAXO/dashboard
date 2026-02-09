@@ -48,6 +48,7 @@ echo '<div id="default-widgets-options" style="display: none;">';
 
 // Einzelne Default Widgets mit Größen-Optionen
 $defaultWidgets = [
+    'default_modified_articles' => 'Geänderte Artikel (Arbeitsversion)',
     'default_recent_articles' => 'Zuletzt aktualisierte Artikel',
     'default_new_articles' => 'Neue Artikel (30 Tage)',
     'default_media_storage' => 'Medien-Speicherverbrauch (Chart)',
@@ -68,6 +69,7 @@ foreach ($defaultWidgets as $configKey => $label) {
     $select = $sizeField->getSelect();
     $select->addOption('Klein (1 Spalte)', '1');
     $select->addOption('Breit (2 Spalten)', '2');
+    $select->addOption('Voll (3 Spalten)', '3');
 }
 
 // RSS Feed Widget

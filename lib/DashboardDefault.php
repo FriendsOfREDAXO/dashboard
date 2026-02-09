@@ -10,6 +10,7 @@ use FriendsOfRedaxo\Dashboard\Items\BigNumberDemo;
 use FriendsOfRedaxo\Dashboard\Items\Clock;
 use FriendsOfRedaxo\Dashboard\Items\CountdownDemo;
 use FriendsOfRedaxo\Dashboard\Items\MediaStorage;
+use FriendsOfRedaxo\Dashboard\Items\ModifiedArticles;
 use FriendsOfRedaxo\Dashboard\Items\NewArticles;
 use FriendsOfRedaxo\Dashboard\Items\RecentArticles;
 use FriendsOfRedaxo\Dashboard\Items\RssClean;
@@ -41,6 +42,14 @@ class DashboardDefault
             Dashboard::addItem(
                 RecentArticles::factory('dashboard-default-recent-articles', rex_i18n::msg('dashboard_recent_articles_title', 'Zuletzt aktualisierte Artikel'))
                     ->setColumns($addon->getConfig('default_recent_articles_columns', 2)),
+            );
+        }
+
+        // Geänderte Artikel (Arbeitsversion)
+        if ($addon->getConfig('default_modified_articles', true)) {
+            Dashboard::addItem(
+                ModifiedArticles::factory('dashboard-default-modified-articles', rex_i18n::msg('dashboard_modified_articles_title', 'Geänderte Artikel (Arbeitsversion)'))
+                    ->setColumns($addon->getConfig('default_modified_articles_columns', 3)),
             );
         }
 
