@@ -106,8 +106,6 @@ class ModifiedArticles extends Item
                 ON a.updateuser = u.login
             WHERE
                 work.max_work_date IS NOT NULL
-                AND live.max_live_date IS NOT NULL
-                AND work.max_work_date > live.max_live_date
         ';
 
         // Benutzerrechte prüfen
@@ -161,14 +159,22 @@ class ModifiedArticles extends Item
             $catName = rex_escape($row->getValue('catname'));
             
             $timestamp = strtotime($row->getValue('max_work_date'));
+            $liveTimestamp = $row->getValue('max_live_date') ? strtotime($row->getValue('max_live_date')) : 0;
+            
             $updateDate = date('d.m.Y H:i', $timestamp);
             $timeAgo = $this->getTimeAgo($timestamp);
             $ageDays = floor((time() - $timestamp) / 86400);
             
-            // Mark very old versions (older than 90 days)
+            // Mark very old versions (older than 90 days) or outdated ones
             $style = '';
             $icon = '';
-            if ($ageDays > 90) {
+            
+            if ($liveTimestamp > $timestamp) {
+                // Live version is newer than working version
+                $style = 'color: #e67e22;'; // orange
+                $icon = ' <i class="fa fa-history" title="'.rex_i18n::msg('dashboard_older_than_live').'"></i>';
+            } elseif ($ageDays > 90) {
+                 // Very old draft
                  $style = 'color: #a94442;'; // danger color
                  $icon = ' <i class="fa fa-exclamation-triangle" title="'.rex_i18n::msg('dashboard_old_version').'"></i>';
             }

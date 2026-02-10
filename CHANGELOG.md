@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 2.3.1 - 10.02.2026
+------------------------
+- Fix: Überlappende Action-Buttons im Widget-Header behoben
+- Fix: Styling und Klickfläche der Header-Buttons verbessert
+- Verbesserung: Logik für "Geänderte Artikel" Widget optimiert (Status-Icons, Live-Version Vergleich)
+
 Version 2.3.0 - 09.02.2026
 ------------------------
 - Neu: Widget "Geänderte Artikel (Arbeitsversion)" (benötigt structure/version Plugin)

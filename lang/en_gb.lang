@@ -86,3 +86,4 @@ dashboard_hours_ago = %s hours ago
 dashboard_minutes_ago = %s minutes ago
 dashboard_just_now = just now
 dashboard_old_version = Outdated working version
+dashboard_older_than_live = Older than live version

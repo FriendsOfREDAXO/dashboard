@@ -181,7 +181,7 @@ body.rex-theme-light #rex-dashboard .panel-heading .actions > *:hover {
     display: flex;
     align-items: center;
     pointer-events: none;
-    gap: 4px;
+    gap: 8px;
     z-index: 5;
 }
 
@@ -195,9 +195,10 @@ body.rex-theme-light #rex-dashboard .panel-heading .actions > *:hover {
     border-radius: 4px;
     color: var(--dashboard-text-muted);
     cursor: pointer;
-    padding: 4px 6px;
+    padding: 6px 10px !important;
+    margin: 0 !important;
     transition: all 0.2s ease;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1;
     min-width: auto;
     display: flex;
